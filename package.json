@@ -7,7 +7,8 @@
   "scripts": {
     "build": "pnpm -r run build",
     "lint": "pnpm -r exec eslint .",
-    "format": "prettier --write '**/*.{ts,tsx,md,json}' --config ./packages/config/.prettierrc --ignore-unknown"
+    "format": "prettier --write '**/*.{ts,tsx,md,json}' --config ./packages/config/.prettierrc --ignore-unknown",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +17,18 @@
   "devDependencies": {
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "prettier": "^3.8.1",
     "typescript-eslint": "^8.54.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix --config ./packages/config/eslint.config.js",
+      "prettier --write --config ./packages/config/.prettierrc"
+    ],
+    "*.{json,md}": [
+      "prettier --write --config ./packages/config/.prettierrc"
+    ]
   }
 }
