@@ -1,8 +1,9 @@
-// https://docs.expo.dev/guides/using-eslint/
-import { defineConfig } from 'eslint/config';
-import expoConfig from 'eslint-config-expo/flat';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const { defineConfig } = require('eslint/config');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const expoConfig = require('eslint-config-expo/flat');
 
-export default defineConfig([
+module.exports = defineConfig([
   expoConfig,
   {
     ignores: ['dist/*'],
