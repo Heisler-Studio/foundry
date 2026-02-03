@@ -19,25 +19,6 @@ This document provides essential context and guidelines for working with this mo
 pnpm add @foundry/hello-world --filter example-app-web --workspace
 ```
 
-## Project Structure
-
-This is a **pnpm workspace** hub for developing multiple applications and shared packages.
-
-```
-foundry/
-├── apps/                    # Applications
-│   └── example-app-web/     # Next.js web application
-│   └── [expo-mobile-app]/   # Expo React Native app (future)
-│   └── [storybook]/         # Storybook for component documentation (future)
-├── packages/                # Shared packages organized by domain
-│   ├── config/              # Shared configuration (ESLint, Prettier, TypeScript)
-│   ├── hello-world/         # Example package
-│   └── [auth]/              # Authentication utilities (future)
-│   └── [observability]/     # Monitoring and logging (future)
-├── pnpm-workspace.yaml      # Workspace configuration
-└── .tool-versions           # asdf version management
-```
-
 ### Packages
 
 Organized by **domain** for maintainability:
