@@ -1,4 +1,5 @@
 import { View, Text, ScrollView } from 'react-native';
+import { Card, Button, Input } from '@foundry/react-native-components';
 
 export default function StyledExample() {
   return (
@@ -29,6 +30,38 @@ export default function StyledExample() {
           <View className="bg-secondary px-4 py-2 rounded-md">
             <Text className="text-white font-medium">Secondary</Text>
           </View>
+        </View>
+      </View>
+
+      {/* Shared Components */}
+      <View className="p-4">
+        <Text className="text-lg font-semibold mb-4 text-foreground">Shared Components</Text>
+
+        <Card
+          header={<Text className="text-foreground font-semibold">Card Component</Text>}
+          footer={<Text className="text-muted-foreground text-sm">Card Footer</Text>}
+        >
+          <Text className="text-foreground mb-4">
+            This Card component is imported from @foundry/react-native-components
+          </Text>
+
+          <View className="gap-2">
+            <Button variant="primary" onPress={() => console.log('Primary pressed')}>
+              Primary Button
+            </Button>
+            <Button variant="secondary" onPress={() => console.log('Secondary pressed')}>
+              Secondary Button
+            </Button>
+            <Button variant="outline" onPress={() => console.log('Outline pressed')}>
+              Outline Button
+            </Button>
+          </View>
+        </Card>
+
+        <View className="mt-4">
+          <Card>
+            <Input label="Email" placeholder="Enter your email" keyboardType="email-address" />
+          </Card>
         </View>
       </View>
 

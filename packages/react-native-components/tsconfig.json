@@ -1,0 +1,15 @@
+{
+  "extends": "@foundry/config/tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "noEmit": false,
+    "jsx": "react-native",
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "lib": ["ES2022"],
+    "types": ["react", "react-native", "nativewind/types"]
+  },
+  "include": ["src", "nativewind-env.d.ts"]
+}
