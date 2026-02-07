@@ -1,5 +1,5 @@
-import { View, Text, ScrollView } from 'react-native';
-import { Card, Button, Input } from '@foundry/react-native-components';
+import { Button, Card, Input } from '@foundry/react-native-components';
+import { ScrollView, Text, View } from 'react-native';
 
 export default function StyledExample() {
   return (
@@ -39,28 +39,40 @@ export default function StyledExample() {
 
         <Card
           header={<Text className="text-foreground font-semibold">Card Component</Text>}
+          headerClassName="border-b-0 pb-0"
           footer={<Text className="text-muted-foreground text-sm">Card Footer</Text>}
+          footerClassName="border-t-0 pt-0"
         >
           <Text className="text-foreground mb-4">
             This Card component is imported from @foundry/react-native-components
           </Text>
 
           <View className="gap-2">
-            <Button variant="primary" onPress={() => console.log('Primary pressed')}>
-              Primary Button
-            </Button>
-            <Button variant="secondary" onPress={() => console.log('Secondary pressed')}>
-              Secondary Button
-            </Button>
-            <Button variant="outline" onPress={() => console.log('Outline pressed')}>
-              Outline Button
-            </Button>
+            <Button variant="primary">Primary Button</Button>
+            <Button variant="secondary">Secondary Button</Button>
+            <Button variant="outline">Outline Button</Button>
           </View>
         </Card>
 
         <View className="mt-4">
-          <Card>
+          <Card className="border-primary">
             <Input label="Email" placeholder="Enter your email" keyboardType="email-address" />
+          </Card>
+        </View>
+
+        <View className="mt-4">
+          <Card
+            className="bg-muted"
+            header={<Text className="text-foreground font-semibold">App Overrides</Text>}
+            contentClassName="gap-2"
+          >
+            <Text className="text-muted-foreground text-sm">
+              This card demonstrates app-level `className` overrides layered on top of base
+              components.
+            </Text>
+            <Button variant="outline" className="border-secondary">
+              Overridden Outline
+            </Button>
           </Card>
         </View>
       </View>

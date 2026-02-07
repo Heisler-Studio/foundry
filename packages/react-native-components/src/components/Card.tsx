@@ -14,6 +14,21 @@ export interface CardProps extends ViewProps {
    * Optional footer content displayed at the bottom of the card
    */
   footer?: React.ReactNode;
+
+  /**
+   * Optional className override for the header container
+   */
+  headerClassName?: string;
+
+  /**
+   * Optional className override for the content container
+   */
+  contentClassName?: string;
+
+  /**
+   * Optional className override for the footer container
+   */
+  footerClassName?: string;
   /**
    * Content to display inside the card
    */
@@ -31,15 +46,28 @@ export interface CardProps extends ViewProps {
  * </Card>
  * ```
  */
-export const Card: React.FC<CardProps> = ({ header, footer, children, className, ...props }) => {
+export const Card: React.FC<CardProps> = ({
+  header,
+  footer,
+  headerClassName,
+  contentClassName,
+  footerClassName,
+  children,
+  className,
+  ...props
+}) => {
   return (
     <View
       className={cn('rounded-lg border border-border bg-card p-4 shadow-sm', className)}
       {...props}
     >
-      {header && <View className="mb-3 border-b border-border pb-3">{header}</View>}
-      <View className="flex-1">{children}</View>
-      {footer && <View className="mt-3 border-t border-border pt-3">{footer}</View>}
+      {header && (
+        <View className={cn('mb-3 border-b border-border pb-3', headerClassName)}>{header}</View>
+      )}
+      <View className={cn('flex-1', contentClassName)}>{children}</View>
+      {footer && (
+        <View className={cn('mt-3 border-t border-border pt-3', footerClassName)}>{footer}</View>
+      )}
     </View>
   );
 };

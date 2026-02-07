@@ -29,6 +29,19 @@ Create a new file in `src/components/ComponentName.tsx`:
 touch src/components/YourComponent.tsx
 ```
 
+### Raw Component Installs (Monorepo)
+
+When adding upstream "raw" components (for example, components that come as source files intended to work with NativeWind in a monorepo), place the source under:
+
+- `src/components/raw/<ComponentName>.tsx`
+
+Then create a stable export from `src/index.ts` (either exporting the raw component directly or wrapping it to match Foundry conventions).
+
+This keeps the component source inside the package so:
+
+- Tailwind content scanning can include it
+- Consuming apps can import from `@foundry/react-native-components` without deep imports
+
 ### Step 2: Write the Component
 
 Use the template below as a starting point. Replace `YourComponent` with your actual component name.
