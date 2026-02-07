@@ -1,6 +1,10 @@
 {
   "extends": "@foundry/config/tsconfig.base.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
     "outDir": "./dist",
     "rootDir": "./src",
     "noEmit": false,

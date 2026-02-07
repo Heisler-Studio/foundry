@@ -5,11 +5,8 @@
  * Provides accessible, customizable UI primitives for Expo universal apps.
  */
 
-// Components
-export { Card, type CardProps } from './components/Card';
-export { Button, type ButtonProps, type ButtonVariant } from './components/Button';
-export { Input, type InputProps } from './components/Input';
-export * from './components/raw';
+// Components (installed via @react-native-reusables/cli)
+export * from './registry/new-york/components/ui/index';
 
 // Utilities
-export { cn } from './utils/cn';
+export { cn } from './registry/new-york/lib/utils';
