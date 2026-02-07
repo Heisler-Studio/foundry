@@ -21,17 +21,32 @@ Before creating a component:
 
 ## Step-by-Step Guide
 
-### Step 1: Create the Component File
+### Step 1: Install via React Native Reusables CLI (Default)
 
-Create a new file in `src/components/ComponentName.tsx`:
+This package's default workflow is to install upstream React Native Reusables components into the package using the CLI:
 
 ```bash
-touch src/components/YourComponent.tsx
+pnpm dlx @react-native-reusables/cli@latest add -y --overwrite --cwd packages/react-native-components <component>
 ```
 
-### Step 2: Write the Component
+This installs upstream source files under `src/registry/new-york/` (per `components.json`).
 
-Use the template below as a starting point. Replace `YourComponent` with your actual component name.
+Then export (or wrap) components from:
+
+- `src/registry/new-york/components/ui/index.ts`
+
+Those exports are re-exported from `src/index.ts` and become the public API for consuming apps.
+
+This keeps the component source inside the package so:
+
+- Tailwind content scanning can include it
+- Consuming apps can import from `@foundry/react-native-components` without deep imports
+
+### Step 2: Add Foundry-specific wrappers (Optional)
+
+If you need to wrap an upstream component to match Foundry conventions, create wrappers in a separate directory so they won't be overwritten by future CLI installs. Recommended:
+
+- `src/foundry/*`
 
 ### Step 3: Add Props Interface
 
@@ -52,7 +67,7 @@ export interface YourComponentProps extends BaseComponentProps {
 Add the export to `src/index.ts`:
 
 ```typescript
-export { YourComponent, type YourComponentProps } from './components/YourComponent';
+export { YourComponent, type YourComponentProps } from './foundry/YourComponent';
 ```
 
 ### Step 5: Build and Test
@@ -82,7 +97,7 @@ Update `README.md` with:
 ````tsx
 import React from 'react';
 import { View, ViewProps } from 'react-native';
-import { cn } from '../utils/cn';
+import { cn } from '../registry/new-york/lib/utils';
 
 /**
  * Props for the YourComponent component
@@ -129,7 +144,7 @@ YourComponent.displayName = 'YourComponent';
 
 Before submitting your component:
 
-- [ ] Component file created in `src/components/`
+- [ ] Component file created in `src/foundry/` (wrappers/custom components only)
 - [ ] Props interface defined with JSDoc comments
 - [ ] Component has `displayName` set
 - [ ] Uses `cn()` utility for className merging

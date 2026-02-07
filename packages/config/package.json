@@ -6,7 +6,8 @@
   "exports": {
     "./tsconfig.base.json": "./tsconfig.base.json",
     "./eslint.config": "./eslint.config.js",
-    "./prettier": "./.prettierrc"
+    "./prettier": "./.prettierrc",
+    "./tailwind/nativewind-monorepo-content": "./tailwind/nativewind-monorepo-content.cjs"
   },
   "dependencies": {
     "typescript-eslint": "^8.0.0",
