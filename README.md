@@ -23,7 +23,7 @@ To link a local package to an app or another package, **always** use the `--work
 **Run from the root:**
 
 ```bash
-pnpm add @foundry/hello-world --filter example-app-web --workspace
+pnpm add @foundry/hello-world --filter base-web --workspace
 ```
 
 ## 🚀 Development Workflow

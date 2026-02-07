@@ -27,7 +27,7 @@ importers:
         specifier: ^8.54.0
         version: 8.54.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
 
-  apps/example-app-web:
+  apps/base-web:
     dependencies:
       '@foundry/hello-world':
         specifier: workspace:*
@@ -73,7 +73,7 @@ importers:
         specifier: ^5
         version: 5.9.3
 
-  apps/heisler-studio-foundry:
+  apps/base-universal-app:
     dependencies:
       '@expo/vector-icons':
         specifier: ^15.0.3

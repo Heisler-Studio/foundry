@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "heisler-studio-foundry",
-    "slug": "heisler-studio-foundry",
+    "name": "base-universal-app",
+    "slug": "base-universal-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",

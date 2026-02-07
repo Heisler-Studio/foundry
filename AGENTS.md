@@ -16,7 +16,7 @@ This document provides essential context and guidelines for working with this mo
 
 ```bash
 # Adding a workspace package to an app
-pnpm add @foundry/hello-world --filter example-app-web --workspace
+pnpm add @foundry/hello-world --filter base-web --workspace
 ```
 
 ### Packages
@@ -39,7 +39,7 @@ pnpm -r run build
 pnpm --filter @foundry/hello-world run build
 
 # Build specific app
-pnpm --filter example-app-web run build
+pnpm --filter base-web run build
 ```
 
 ## Code Style & Architecture Principles
