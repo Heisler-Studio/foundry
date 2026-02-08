@@ -1,3 +1,4 @@
+import { api } from '@foundry/data';
 import {
   Button,
   Card,
@@ -24,7 +25,7 @@ export default function StyledExample() {
         <Text className="text-lg font-semibold mb-4 text-foreground">Basic Styling</Text>
         <View className="bg-muted p-4 rounded-lg border border-border">
           <Text className="text-foreground">
-            This box uses utility classes for padding, background, and border.
+            Using API baseURL: {api.defaults.baseURL || 'Not configured'}
           </Text>
         </View>
       </View>
