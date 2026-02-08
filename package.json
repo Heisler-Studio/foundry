@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "pnpm -r run build",
-    "lint": "pnpm -r exec eslint .",
+    "lint": "pnpm -r exec eslint . -c ../../packages/config/eslint.config.js",
     "format": "prettier --write '**/*.{ts,tsx,md,json}' --config ./packages/config/.prettierrc --ignore-unknown",
     "prepare": "husky"
   },

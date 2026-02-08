@@ -11,6 +11,15 @@ export default ts.config(
     rules: {
       '@typescript-eslint/no-unused-vars': 'error',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
+      // Disable it globally first to ensure JS files are ignored
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
+  {
+    // Explicitly enforce ONLY for TypeScript files
+    files: ['**/*.ts', '**/*.tsx'],
+    rules: {
+      '@typescript-eslint/no-require-imports': 'error',
     },
   },
 );
