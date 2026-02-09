@@ -1,4 +1,4 @@
-import { api } from '@foundry/data';
+import { api, useHealthCheck } from '@foundry/data';
 import {
   Button,
   Card,
@@ -12,12 +12,14 @@ import {
 import { ScrollView, Text, View } from 'react-native';
 
 export default function StyledExample() {
+  const { data: healthCheckData } = useHealthCheck();
+
   return (
     <ScrollView className="flex-1 bg-background">
       {/* Header */}
       <View className="bg-primary p-6">
-        <Text className="text-2xl font-bold text-white">NativeWind Example</Text>
-        <Text className="text-white/80 mt-1">Tailwind CSS in React Native</Text>
+        <Text className="text-2xl font-bold text-white">Base Universal App</Text>
+        <Text className="text-white/80 mt-1">{healthCheckData?.status}</Text>
       </View>
 
       {/* Basic Styling */}
