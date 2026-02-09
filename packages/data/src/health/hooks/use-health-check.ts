@@ -1,8 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { healthCheck } from '../api';
 
 export const useHealthCheck = () => {
-  return useQuery({
+  return useSuspenseQuery({
     queryFn: healthCheck,
     queryKey: ['health-check'],
   });
