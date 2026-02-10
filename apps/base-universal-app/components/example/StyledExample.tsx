@@ -1,12 +1,5 @@
 import { Button } from '@/components/primitives/ThemedButton';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/primitives/ThemedCard';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/primitives/ThemedCard';
 import { Input } from '@/components/primitives/ThemedInput';
 import { Text } from '@/components/primitives/ThemedText';
 import { useHealthCheck } from '@foundry/data';
@@ -53,27 +46,6 @@ export default function StyledExample() {
       {/* Shared Components */}
       <View className="p-4">
         <Text className="text-lg font-semibold mb-4 text-foreground">Shared Components</Text>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Card Component</CardTitle>
-            <CardDescription>Imported from @foundry/react-native-components</CardDescription>
-          </CardHeader>
-          <CardContent className="gap-2">
-            <Button>
-              <Text>Default Button</Text>
-            </Button>
-            <Button variant="secondary">
-              <Text>Secondary Button</Text>
-            </Button>
-            <Button variant="outline">
-              <Text>Outline Button</Text>
-            </Button>
-          </CardContent>
-          <CardFooter>
-            <Text className="text-muted-foreground text-sm">Card Footer</Text>
-          </CardFooter>
-        </Card>
 
         <View className="mt-4">
           <Card className="border-primary">
