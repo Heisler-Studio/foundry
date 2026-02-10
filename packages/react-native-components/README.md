@@ -30,7 +30,23 @@ After installing, export (or wrap) the new components from `packages/react-nativ
 
 Note: This package intentionally does not use `src/components/*` as an authoring location. The default workflow is CLI installs into `src/registry/...`.
 
-## Runbooks
+## Build
+
+```bash
+pnpm --filter @foundry/react-native-components run build
+```
+
+Output is written to `dist/`.
+
+### Troubleshooting
+
+**Build completes but no `dist/` directory is created:**
+
+```bash
+rm -f packages/react-native-components/tsconfig.tsbuildinfo && pnpm --filter @foundry/react-native-components run build
+```
+
+The incremental build cache can occasionally become corrupted.
 
 See the `/runbooks` directory for detailed guides:
 
