@@ -1,16 +1,17 @@
-import { useHealthCheck } from '@foundry/data';
+import { Button } from '@/components/primitives/ThemedButton';
 import {
-  Button,
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-  Input,
-} from '@foundry/react-native-components';
+} from '@/components/primitives/ThemedCard';
+import { Input } from '@/components/primitives/ThemedInput';
+import { Text } from '@/components/primitives/ThemedText';
+import { useHealthCheck } from '@foundry/data';
 import { Suspense } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 const Loading = () => <Text>Loading...</Text>;
 
@@ -21,7 +22,9 @@ export default function StyledExample() {
     <ScrollView className="flex-1 bg-background">
       {/* Header */}
       <View className="bg-primary p-6">
-        <Text className="text-2xl font-bold text-white">Base Universal App</Text>
+        <Text variant="h1" className="text-2xl font-bold text-white">
+          Base Universal App
+        </Text>
       </View>
 
       {/* Basic Styling */}
