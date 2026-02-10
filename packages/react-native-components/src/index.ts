@@ -6,6 +6,7 @@
  */
 
 // Components (installed via @react-native-reusables/cli)
+export * from './registry/new-york/components/social-connections';
 export * from './registry/new-york/components/ui/index';
 
 // Utilities
