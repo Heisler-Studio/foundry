@@ -18,6 +18,7 @@ export default function PublicLayout() {
         options={{
           headerLargeTitle: true,
           headerTitle: 'Heisler Studio',
+          headerTransparent: true, // Allows content to flow behind the header
 
           // KEEP: Example of upcoming multi-function iOS implementation
           // unstable_headerRightItems: () => [
