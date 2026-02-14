@@ -1,5 +1,5 @@
-// TODO: These colors need to sync with the Tailwind config. We need a single source of truth
 export const colors = {
+  // TODO: These colors need to sync with the Tailwind config. We need a single source of truth
   background: '#FFFFFF',
   foreground: '#000000',
   card: '#FAFAFA',
@@ -17,4 +17,6 @@ export const colors = {
   border: '#E6E6E6',
   input: '#E6E6E6',
   ring: '#007BFF',
+
+  black: '#000000',
 };

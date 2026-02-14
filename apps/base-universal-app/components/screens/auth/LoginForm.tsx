@@ -1,37 +1,23 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/primitives/ThemedCard';
 import { Text } from '@/components/primitives/ThemedText';
-import { SocialConnections } from '@foundry/react-native-components';
-import { ScrollView, View } from 'react-native';
+import { colors } from '@/theme';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { View } from 'react-native';
 
 export default function LoginForm() {
   return (
-    <ScrollView
-      keyboardShouldPersistTaps="handled"
-      contentContainerClassName="sm:flex-1 items-center justify-center p-4 py-8 sm:py-4 sm:p-6 mt-safe"
-      keyboardDismissMode="interactive"
-    >
-      <View className="w-full max-w-sm">
-        <Card>
-          <CardHeader>
-            <CardTitle>Sign In</CardTitle>
-            <CardDescription>Please sign in to continue</CardDescription>
-          </CardHeader>
-          <CardContent className="gap-2">
-            {/* TODO: replace with locally configured actions. This pre-built component doesn't provide any config */}
-            <SocialConnections />
-          </CardContent>
-          <CardFooter>
-            <Text className="text-muted-foreground text-sm">Sign up</Text>
-          </CardFooter>
-        </Card>
+    <View className="items-center p-10 h-72">
+      <Text variant="h1" className="text-center pb-8">
+        Sign in
+      </Text>
+      <View className="gap-2 pb-4 w-full max-w-sm">
+        <FontAwesome.Button name="google" className="self-center">
+          Sign in with Google
+        </FontAwesome.Button>
+        <FontAwesome.Button name="apple" className="self-center" backgroundColor={colors.black}>
+          Sign in with Apple
+        </FontAwesome.Button>
       </View>
-    </ScrollView>
+      <Text className="text-muted-foreground text-sm">By signing up, you agree to blah, blah</Text>
+    </View>
   );
 }

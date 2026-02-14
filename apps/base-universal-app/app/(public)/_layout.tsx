@@ -4,6 +4,21 @@ import { Stack, useRouter } from 'expo-router';
 import { Cog } from 'lucide-react-native';
 import { Pressable } from 'react-native';
 
+// KEEP: Example of upcoming multi-function iOS implementation
+// unstable_headerRightItems: () => [
+//   {
+//     type: 'button',
+//     label: 'Settings',
+//     icon: {
+//       type: 'sfSymbol',
+//       name: 'heart',
+//     },
+//     onPress: () => {
+//       router.push('/(public)/login');
+//     },
+//   },
+// ],
+
 export default function PublicLayout() {
   const router = useRouter();
 
@@ -19,21 +34,6 @@ export default function PublicLayout() {
           headerLargeTitle: true,
           headerTitle: 'Heisler Studio',
           headerTransparent: true, // Allows content to flow behind the header
-
-          // KEEP: Example of upcoming multi-function iOS implementation
-          // unstable_headerRightItems: () => [
-          //   {
-          //     type: 'button',
-          //     label: 'Settings',
-          //     icon: {
-          //       type: 'sfSymbol',
-          //       name: 'heart',
-          //     },
-          //     onPress: () => {
-          //       router.push('/(public)/login');
-          //     },
-          //   },
-          // ],
           headerRight: () => (
             <Pressable onPress={handleLoginOpen} className="w-10 items-center">
               <Icon
@@ -47,7 +47,16 @@ export default function PublicLayout() {
           ),
         }}
       />
-      <Stack.Screen name="login" options={{ presentation: 'modal' }} />
+
+      <Stack.Screen
+        name="login"
+        options={{
+          headerShown: false,
+          presentation: 'formSheet',
+          sheetAllowedDetents: 'fitToContents', // depends on height being set on component
+          sheetGrabberVisible: true,
+        }}
+      />
     </Stack>
   );
 }
