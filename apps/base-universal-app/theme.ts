@@ -1,0 +1,22 @@
+export const colors = {
+  // TODO: These colors need to sync with the Tailwind config. We need a single source of truth
+  background: '#FFFFFF',
+  foreground: '#000000',
+  card: '#FAFAFA',
+  'card-foreground': '#000000',
+  popover: '#FFFFFF',
+  'popover-foreground': '#000000',
+  primary: '#007BFF',
+  'primary-foreground': '#FFFFFF',
+  secondary: '#5A58D5',
+  'secondary-foreground': '#FFFFFF',
+  muted: '#F5F5F5',
+  'muted-foreground': '#737373',
+  destructive: '#EF4343',
+  'destructive-foreground': '#FFFFFF',
+  border: '#E6E6E6',
+  input: '#E6E6E6',
+  ring: '#007BFF',
+
+  black: '#000000',
+};
