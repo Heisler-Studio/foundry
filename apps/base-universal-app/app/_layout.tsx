@@ -17,7 +17,7 @@ function Navigation() {
 export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
-      <StatusBar animated style="auto" backgroundColor="red" />
+      <StatusBar animated style="auto" />
       <Navigation />
     </QueryClientProvider>
   );
