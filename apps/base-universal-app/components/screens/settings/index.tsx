@@ -3,6 +3,7 @@ import { ModalHeader } from '@/components/headers/ModalHeader';
 import { Button } from '@/components/primitives/ThemedButton';
 import { Card, CardContent } from '@/components/primitives/ThemedCard';
 import { Text } from '@/components/primitives/ThemedText';
+import { ThemeSwitcher } from '@/components/theme/ThemeSwitcher';
 import { Badge } from '@foundry/react-native-components';
 import { useRouter } from 'expo-router';
 import { View } from 'react-native';
@@ -20,10 +21,14 @@ export const SettingsScreen = () => {
         <ModalHeader />
         <Card>
           <CardContent>
-            <View className="justify-between">
-              <Text>Placeholder for theme switcher</Text>
-              <Text>Toggle</Text>
+            <View className="gap-4">
+              <Text className="text-lg font-semibold">Theme</Text>
+              <ThemeSwitcher />
             </View>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent>
             <View className="justify-between">
               <Text>Placeholder for sign in</Text>
               <Button onPress={handleLoginOpen}>

@@ -1,5 +1,6 @@
 import '../global.css';
 
+import { ThemeProvider } from '@/providers/ThemeProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -17,8 +18,10 @@ function Navigation() {
 export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
-      <StatusBar animated style="auto" />
-      <Navigation />
+      <ThemeProvider>
+        <StatusBar animated style="auto" />
+        <Navigation />
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
