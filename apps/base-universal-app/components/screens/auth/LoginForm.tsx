@@ -1,5 +1,5 @@
 import { Text } from '@/components/primitives/ThemedText';
-import { colors } from '@/theme';
+import { BRAND_APPLE_BLACK } from '@/theme/colors';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { View } from 'react-native';
 
@@ -13,7 +13,11 @@ export default function LoginForm() {
         <FontAwesome.Button name="google" className="self-center">
           Sign in with Google
         </FontAwesome.Button>
-        <FontAwesome.Button name="apple" className="self-center" backgroundColor={colors.black}>
+        <FontAwesome.Button
+          name="apple"
+          className="self-center"
+          backgroundColor={BRAND_APPLE_BLACK}
+        >
           Sign in with Apple
         </FontAwesome.Button>
       </View>

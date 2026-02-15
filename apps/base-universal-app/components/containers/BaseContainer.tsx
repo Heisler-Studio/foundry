@@ -26,6 +26,7 @@ export const BaseContainer = ({ contentContainerClassName, children }: BaseConta
       keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
     >
       <ScrollView
+        className="bg-background"
         keyboardShouldPersistTaps="handled"
         // Ensures that content starts below the header/status bar initially but allows it to scroll behind it with the blur effect
         contentInsetAdjustmentBehavior="automatic"

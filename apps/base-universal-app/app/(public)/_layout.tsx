@@ -1,5 +1,7 @@
 import { Icon } from '@/components/primitives/Icon';
-import { colors } from '@/theme';
+import { useTheme } from '@/providers/ThemeProvider';
+import { themeColor } from '@/theme/colors';
+import { getThemeColor } from '@/theme/utils';
 import { Stack, useRouter } from 'expo-router';
 import { Cog } from 'lucide-react-native';
 import { Pressable } from 'react-native';
@@ -25,6 +27,7 @@ import { Pressable } from 'react-native';
  */
 export default function PublicLayout() {
   const router = useRouter();
+  const { resolvedTheme } = useTheme();
 
   const handleLoginOpen = () => {
     router.push('/(public)/settings');
@@ -38,13 +41,14 @@ export default function PublicLayout() {
           headerLargeTitle: true,
           headerTitle: 'Heisler Studio',
           headerTransparent: true, // Allows content to flow behind the header
+          headerTintColor: getThemeColor(resolvedTheme, themeColor.foreground),
           headerRight: () => (
             <Pressable onPress={handleLoginOpen} className="w-10 items-center">
               <Icon
                 key="settings"
                 name="gearshape"
                 as={Cog}
-                color={colors.foreground}
+                color={getThemeColor(resolvedTheme, themeColor.foreground)}
                 className="text-foreground"
               />
             </Pressable>
@@ -59,6 +63,9 @@ export default function PublicLayout() {
           presentation: 'formSheet',
           sheetAllowedDetents: 'fitToContents', // depends on height being set on component
           sheetGrabberVisible: true,
+          contentStyle: {
+            backgroundColor: getThemeColor(resolvedTheme, themeColor.card),
+          },
         }}
       />
 
