@@ -1,8 +1,8 @@
-import { Pressable, View } from 'react-native';
-import { colors } from '@/theme';
-import { useThemeStore } from '@/store/theme-store';
-import { ThemeValue, THEME_SYSTEM, THEME_LIGHT, THEME_DARK } from '@/types/theme';
 import { Text } from '@/components/primitives/ThemedText';
+import { useThemeStore } from '@/store/theme-store';
+import { colors } from '@/theme';
+import { THEME_DARK, THEME_LIGHT, THEME_SYSTEM, ThemeValue } from '@/types/theme';
+import { Pressable, View } from 'react-native';
 
 interface ThemePreviewCardProps {
   theme: ThemeValue;
@@ -15,31 +15,31 @@ const ThemePreviewCard = ({ theme, isSelected, onSelect }: ThemePreviewCardProps
     switch (theme) {
       case THEME_SYSTEM:
         return {
-          container: `bg-[${colors.system.backgroundLight}]`,
-          header: `bg-[${colors.system.header}]`,
-          card: `bg-[${colors.system.card}]`,
-          accent: `bg-[${colors.system.primary}]`,
+          container: { backgroundColor: colors.system.backgroundLight },
+          header: { backgroundColor: colors.system.header },
+          card: { backgroundColor: colors.system.card },
+          accent: { backgroundColor: colors.system.primary },
         };
       case THEME_LIGHT:
         return {
-          container: `bg-[${colors.light.background}]`,
-          header: `bg-[${colors.light.card}]`,
-          card: `bg-[${colors.light.card}]`,
-          accent: `bg-[${colors.light.primary}]`,
+          container: { backgroundColor: colors.light.background },
+          header: { backgroundColor: colors.light.card },
+          card: { backgroundColor: colors.light.card },
+          accent: { backgroundColor: colors.light.primary },
         };
       case THEME_DARK:
         return {
-          container: `bg-[${colors.dark.background}]`,
-          header: `bg-[${colors.dark.card}]`,
-          card: `bg-[${colors.dark.card}]`,
-          accent: `bg-[${colors.dark.primary}]`,
+          container: { backgroundColor: colors.dark.background },
+          header: { backgroundColor: colors.dark.card },
+          card: { backgroundColor: colors.dark.card },
+          accent: { backgroundColor: colors.dark.primary },
         };
       default:
         return {
-          container: `bg-[${colors.light.background}]`,
-          header: `bg-[${colors.light.card}]`,
-          card: `bg-[${colors.light.card}]`,
-          accent: `bg-[${colors.light.primary}]`,
+          container: { backgroundColor: colors.light.background },
+          header: { backgroundColor: colors.light.card },
+          card: { backgroundColor: colors.light.card },
+          accent: { backgroundColor: colors.light.primary },
         };
     }
   };
@@ -53,18 +53,18 @@ const ThemePreviewCard = ({ theme, isSelected, onSelect }: ThemePreviewCardProps
         isSelected ? 'border-primary' : 'border-transparent'
       }`}
     >
-      <View className={`w-24 h-32 ${styles.container}`}>
+      <View className="w-24 h-32" style={styles.container}>
         {/* Mock Header */}
-        <View className={`h-6 ${styles.header} mx-2 mt-2 rounded-t`} />
+        <View className="h-6 mx-2 mt-2 rounded-t" style={styles.header} />
 
         {/* Mock Content Card */}
-        <View className={`mx-2 mt-1 h-16 ${styles.card} rounded-b p-2`}>
+        <View className="mx-2 mt-1 h-16 rounded-b p-2" style={styles.card}>
           {/* Mock Text Lines */}
           <View className="h-1.5 bg-gray-400/30 rounded w-3/4 mb-1" />
           <View className="h-1.5 bg-gray-400/30 rounded w-1/2 mb-2" />
 
           {/* Mock Accent Button */}
-          <View className={`h-4 ${styles.accent} rounded w-8`} />
+          <View className="h-4 rounded w-8" style={styles.accent} />
         </View>
       </View>
 

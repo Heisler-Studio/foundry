@@ -1,5 +1,4 @@
 import { NativeModules, Platform } from 'react-native';
-import { createMMKV } from 'react-native-mmkv';
 
 export interface StorageAdapter {
   getItem: (name: string) => string | null;
@@ -7,17 +6,21 @@ export interface StorageAdapter {
   removeItem: (name: string) => void;
 }
 
-let mmkvInstance: ReturnType<typeof createMMKV> | null = null;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let mmkvInstance: any = null;
 
 const createMMKVStorage = (): StorageAdapter => {
   if (!mmkvInstance) {
+    // Dynamic require to prevent import errors in Expo Go
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { createMMKV } = require('react-native-mmkv');
     mmkvInstance = createMMKV({ id: 'theme-storage' });
   }
 
   return {
-    getItem: (name) => mmkvInstance!.getString(name) ?? null,
-    setItem: (name, value) => mmkvInstance!.set(name, value),
-    removeItem: (name) => mmkvInstance!.remove(name),
+    getItem: (name) => mmkvInstance.getString(name) ?? null,
+    setItem: (name, value) => mmkvInstance.set(name, value),
+    removeItem: (name) => mmkvInstance.remove(name),
   };
 };
 

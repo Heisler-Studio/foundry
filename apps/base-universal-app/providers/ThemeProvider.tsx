@@ -29,8 +29,8 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   }, [hasHydrated]);
 
   useEffect(() => {
-    if (isHydrated) {
-      const root = document?.documentElement;
+    if (isHydrated && typeof document !== 'undefined') {
+      const root = document.documentElement;
       if (root) {
         if (effectiveTheme === THEME_DARK) {
           root.classList.add('dark');
