@@ -40,7 +40,7 @@
   --sidebar-ring: rgba(224, 93, 56, 1);
 }
 
-.dark {
+.dark:root {
   --background: rgba(26, 26, 26, 1);
   --foreground: rgba(229, 229, 229, 1);
   --card: rgba(32, 32, 32, 1);

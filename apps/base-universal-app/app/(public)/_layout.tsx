@@ -1,6 +1,7 @@
 import { Icon } from '@/components/primitives/Icon';
 import { useTheme } from '@/providers/ThemeProvider';
-import { getThemeColor, THEME_COLOR_FOREGROUND } from '@/theme/utils';
+import { THEME_COLOR_FOREGROUND } from '@/theme/colors';
+import { getThemeColor } from '@/theme/utils';
 import { Stack, useRouter } from 'expo-router';
 import { Cog } from 'lucide-react-native';
 import { Pressable } from 'react-native';

@@ -3,7 +3,7 @@ import { THEME_DARK, THEME_SYSTEM, type ResolvedTheme, type ThemeMode } from '@/
 import { resolveTheme } from '@/theme/utils';
 import { useColorScheme } from 'nativewind';
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
-import { Appearance, Platform, View } from 'react-native';
+import { Appearance, Platform } from 'react-native';
 
 interface ThemeContextValue {
   theme: ThemeMode;
@@ -55,16 +55,9 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     [mode, effectiveTheme, setMode],
   );
 
-  // Wrap children in a View with the dark className when in dark mode
-  // NativeWind uses this class to apply dark: variants
-  // Note: Using collapsable=false to ensure the View stays in the tree for NativeWind
-  return (
-    <ThemeContext.Provider value={value}>
-      <View className={effectiveTheme === 'dark' ? 'dark flex-1' : 'flex-1'} collapsable={false}>
-        {children}
-      </View>
-    </ThemeContext.Provider>
-  );
+  // Note: Cannot wrap in View - breaks NavigationContainer in Expo Router.
+  // NativeWind handles dark mode via setColorScheme and CSS variables.
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 };
 
 export const useTheme = () => {
