@@ -1,9 +1,9 @@
-/* https://ui.shadcn.com/docs/theming#list-of-variables */
-/* NOTE: Keep these color values in sync with theme.ts */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* https://ui.shadcn.com/docs/theming#list-of-variables */
+/* Colors copied into theme.ts */
 
 :root {
   --background: rgba(232, 235, 237, 1);

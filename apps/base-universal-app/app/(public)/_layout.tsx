@@ -1,5 +1,6 @@
 import { Icon } from '@/components/primitives/Icon';
-import { colors } from '@/theme';
+import { useTheme } from '@/providers/ThemeProvider';
+import { getThemeColor, THEME_COLOR_FOREGROUND } from '@/theme/utils';
 import { Stack, useRouter } from 'expo-router';
 import { Cog } from 'lucide-react-native';
 import { Pressable } from 'react-native';
@@ -25,6 +26,7 @@ import { Pressable } from 'react-native';
  */
 export default function PublicLayout() {
   const router = useRouter();
+  const { resolvedTheme } = useTheme();
 
   const handleLoginOpen = () => {
     router.push('/(public)/settings');
@@ -44,7 +46,7 @@ export default function PublicLayout() {
                 key="settings"
                 name="gearshape"
                 as={Cog}
-                color={colors.foreground}
+                color={getThemeColor(resolvedTheme, THEME_COLOR_FOREGROUND)}
                 className="text-foreground"
               />
             </Pressable>

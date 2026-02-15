@@ -1,11 +1,11 @@
 import { createStorage } from '@/lib/storage';
-import { THEME_SYSTEM, type ThemeValue } from '@/types/theme';
+import { THEME_SYSTEM, type ThemeMode } from '@/theme/types';
 import { create } from 'zustand';
 import { createJSONStorage, persist, type StateStorage } from 'zustand/middleware';
 
 interface ThemeState {
-  mode: ThemeValue;
-  setMode: (mode: ThemeValue) => void;
+  mode: ThemeMode;
+  setMode: (mode: ThemeMode) => void;
 }
 
 const STORAGE_KEY = '@foundry/theme-settings';
@@ -26,12 +26,15 @@ export const useThemeStore = create<ThemeState>()(
   persist(
     (set) => ({
       mode: THEME_SYSTEM,
-      setMode: (mode: ThemeValue) => set({ mode }),
+      setMode: (mode: ThemeMode) => {
+        set({ mode });
+      },
     }),
     {
       name: STORAGE_KEY,
       storage: createJSONStorage(() => storageAdapter),
       version: 1,
+      skipHydration: true,
       onRehydrateStorage: () => {
         return (state, error) => {
           if (error) {

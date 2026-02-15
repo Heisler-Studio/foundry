@@ -1,47 +1,26 @@
 import { Text } from '@/components/primitives/ThemedText';
 import { useThemeStore } from '@/store/theme-store';
-import { colors } from '@/theme';
-import { THEME_DARK, THEME_LIGHT, THEME_SYSTEM, ThemeValue } from '@/types/theme';
+import { THEME_COLOR_BACKGROUND, THEME_COLOR_CARD, THEME_COLOR_PRIMARY } from '@/theme/colors';
+import { THEME_VALUES, type ThemeMode } from '@/theme/types';
+import { getPreviewColors } from '@/theme/utils';
 import { Pressable, View } from 'react-native';
 
 interface ThemePreviewCardProps {
-  theme: ThemeValue;
+  theme: ThemeMode;
   isSelected: boolean;
   onSelect: () => void;
 }
 
 const ThemePreviewCard = ({ theme, isSelected, onSelect }: ThemePreviewCardProps) => {
   const getCardStyles = () => {
-    switch (theme) {
-      case THEME_SYSTEM:
-        return {
-          container: { backgroundColor: colors.system.backgroundLight },
-          header: { backgroundColor: colors.system.header },
-          card: { backgroundColor: colors.system.card },
-          accent: { backgroundColor: colors.system.primary },
-        };
-      case THEME_LIGHT:
-        return {
-          container: { backgroundColor: colors.light.background },
-          header: { backgroundColor: colors.light.card },
-          card: { backgroundColor: colors.light.card },
-          accent: { backgroundColor: colors.light.primary },
-        };
-      case THEME_DARK:
-        return {
-          container: { backgroundColor: colors.dark.background },
-          header: { backgroundColor: colors.dark.card },
-          card: { backgroundColor: colors.dark.card },
-          accent: { backgroundColor: colors.dark.primary },
-        };
-      default:
-        return {
-          container: { backgroundColor: colors.light.background },
-          header: { backgroundColor: colors.light.card },
-          card: { backgroundColor: colors.light.card },
-          accent: { backgroundColor: colors.light.primary },
-        };
-    }
+    const previewColors = getPreviewColors(theme);
+
+    return {
+      container: { backgroundColor: previewColors[THEME_COLOR_BACKGROUND] },
+      header: { backgroundColor: previewColors[THEME_COLOR_CARD] },
+      card: { backgroundColor: previewColors[THEME_COLOR_CARD] },
+      accent: { backgroundColor: previewColors[THEME_COLOR_PRIMARY] },
+    };
   };
 
   const styles = getCardStyles();
@@ -49,6 +28,8 @@ const ThemePreviewCard = ({ theme, isSelected, onSelect }: ThemePreviewCardProps
   return (
     <Pressable
       onPress={onSelect}
+      accessibilityRole="button"
+      accessibilityState={{ selected: isSelected }}
       className={`rounded-xl overflow-hidden border-2 ${
         isSelected ? 'border-primary' : 'border-transparent'
       }`}
@@ -79,16 +60,18 @@ const ThemePreviewCard = ({ theme, isSelected, onSelect }: ThemePreviewCardProps
 export const ThemeSwitcher = () => {
   const { mode, setMode } = useThemeStore();
 
-  const themes: ThemeValue[] = [THEME_SYSTEM, THEME_LIGHT, THEME_DARK];
+  const handleSelect = (theme: ThemeMode) => {
+    setMode(theme);
+  };
 
   return (
     <View className="flex-row justify-center gap-3 py-4">
-      {themes.map((theme) => (
+      {THEME_VALUES.map((theme) => (
         <ThemePreviewCard
           key={theme}
           theme={theme}
           isSelected={mode === theme}
-          onSelect={() => setMode(theme)}
+          onSelect={() => handleSelect(theme)}
         />
       ))}
     </View>
