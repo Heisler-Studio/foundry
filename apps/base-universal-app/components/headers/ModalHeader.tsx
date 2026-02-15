@@ -1,5 +1,5 @@
 import { useTheme } from '@/providers/ThemeProvider';
-import { THEME_COLOR_FOREGROUND } from '@/theme/colors';
+import { themeColor } from '@/theme/colors';
 import { getThemeColor } from '@/theme/utils';
 import { useRouter } from 'expo-router';
 import { X } from 'lucide-react-native';
@@ -29,7 +29,7 @@ export const ModalHeader = ({ showCloseRightIcon }: ModalHeaderProps) => {
             as={X}
             name="xmark.circle"
             className="text-foreground"
-            color={getThemeColor(resolvedTheme, THEME_COLOR_FOREGROUND)}
+            color={getThemeColor(resolvedTheme, themeColor.foreground)}
           />
         </Button>
       ) : (

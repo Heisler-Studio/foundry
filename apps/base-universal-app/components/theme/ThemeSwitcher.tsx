@@ -1,6 +1,6 @@
 import { Text } from '@/components/primitives/ThemedText';
 import { useThemeStore } from '@/store/theme-store';
-import { THEME_COLOR_BACKGROUND, THEME_COLOR_CARD, THEME_COLOR_PRIMARY } from '@/theme/colors';
+import { themeColor } from '@/theme/colors';
 import { THEME_VALUES, type ThemeMode } from '@/theme/types';
 import { getPreviewColors } from '@/theme/utils';
 import { Pressable, View } from 'react-native';
@@ -16,10 +16,10 @@ const ThemePreviewCard = ({ theme, isSelected, onSelect }: ThemePreviewCardProps
     const previewColors = getPreviewColors(theme);
 
     return {
-      container: { backgroundColor: previewColors[THEME_COLOR_BACKGROUND] },
-      header: { backgroundColor: previewColors[THEME_COLOR_CARD] },
-      card: { backgroundColor: previewColors[THEME_COLOR_CARD] },
-      accent: { backgroundColor: previewColors[THEME_COLOR_PRIMARY] },
+      container: { backgroundColor: previewColors[themeColor.background] },
+      header: { backgroundColor: previewColors[themeColor.card] },
+      card: { backgroundColor: previewColors[themeColor.card] },
+      accent: { backgroundColor: previewColors[themeColor.primary] },
     };
   };
 
