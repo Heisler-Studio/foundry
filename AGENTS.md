@@ -4,42 +4,9 @@ This document provides essential context and guidelines for working with this mo
 
 **ALWAYS use pnpm** for all package management operations. This is a pnpm workspace monorepo.
 
-### Critical Commands
-
-- Install dependencies: `pnpm install`
-- Add dependency: `pnpm add <package>`
-- Add dev dependency: `pnpm add -D <package>`
-- Add workspace dependency: `pnpm add @foundry/<package> --workspace` or use `workspace:*` protocol
-- Run script: `pnpm run <script>`
-- Run across workspace: `pnpm -r run <script>`
-- Run in specific package: `pnpm --filter <package-name> run <script>`
-
 ```bash
 # Adding a workspace package to an app
 pnpm add @foundry/hello-world --filter base-web --workspace
-```
-
-### Packages
-
-Organized by **domain** for maintainability:
-
-- **config**: Shared ESLint, Prettier, TypeScript configurations
-- **hello-world**: Example shared library
-- Future domains: auth, observability, ui-components, utilities, etc.
-
-## Development Workflow
-
-### Build Commands
-
-```bash
-# Build all packages
-pnpm -r run build
-
-# Build specific package
-pnpm --filter @foundry/hello-world run build
-
-# Build specific app
-pnpm --filter base-web run build
 ```
 
 ## Code Style & Architecture Principles
@@ -82,9 +49,8 @@ export class Greeter {
 
 - Use strict TypeScript settings (enforced via @foundry/config)
 - Prefer `type` over `interface` for object shapes
-- Use explicit return types on exported functions
-- Avoid `any` - use `unknown` with type guards when necessary
 - Avoid explicit return types unless necessary
+- Avoid `any` - use `unknown` with type guards when necessary
 
 ## AI Assistant Tools
 
@@ -96,7 +62,7 @@ Always check if a skill exists before attempting complex tasks from scratch.
 
 ### Documentation
 
-**Use context7 MCP for documentation** when needed
+When you need to search docs, use `context7` tools.
 
 ## Common Tasks
 
@@ -110,13 +76,6 @@ Always check if a skill exists before attempting complex tasks from scratch.
 3. Create `tsconfig.json` extending `@foundry/config/tsconfig.base.json`
 4. Create `src/index.ts` entry point
 5. Add exports to `package.json`
-
-### Adding a New App
-
-1. Create directory in `apps/<app-name>/`
-2. Follow framework-specific setup (Next.js, Expo, etc.)
-3. Add `@foundry/config` as devDependency
-4. Update root README with app description
 
 ## Notes
 

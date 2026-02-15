@@ -19,11 +19,15 @@ import { Pressable } from 'react-native';
 //   },
 // ],
 
+/**
+ * FIXME?: Remember to define modals and sheets here.
+ * They do not behave correctly unless in the root Stack.
+ */
 export default function PublicLayout() {
   const router = useRouter();
 
   const handleLoginOpen = () => {
-    router.push('/(public)/login');
+    router.push('/(public)/settings');
   };
 
   return (
@@ -40,8 +44,8 @@ export default function PublicLayout() {
                 key="settings"
                 name="gearshape"
                 as={Cog}
-                color={colors['muted-foreground']}
-                className="text-destructive"
+                color={colors.foreground}
+                className="text-foreground"
               />
             </Pressable>
           ),
@@ -55,6 +59,14 @@ export default function PublicLayout() {
           presentation: 'formSheet',
           sheetAllowedDetents: 'fitToContents', // depends on height being set on component
           sheetGrabberVisible: true,
+        }}
+      />
+
+      <Stack.Screen
+        name="settings/index"
+        options={{
+          headerShown: false,
+          presentation: 'modal',
         }}
       />
     </Stack>
