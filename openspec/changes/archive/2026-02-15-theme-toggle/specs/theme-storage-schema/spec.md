@@ -11,30 +11,29 @@ The system SHALL use MMKV for synchronous, high-performance key-value storage.
 
 ### Requirement: Storage schema versioning
 
-The system SHALL use a versioned storage schema to support future migrations.
+The system SHALL use Zustand's built-in persist middleware versioning to support future migrations.
 
 #### Scenario: Initial schema creation
 
 - **WHEN** the theme is saved for the first time
-- **THEN** it SHALL be stored with schema version "1.0.0"
+- **THEN** Zustand SHALL store it with version number 1
 
 #### Scenario: Schema validation on load
 
 - **WHEN** persisted data is loaded from storage
-- **THEN** the system SHALL validate the schema version
-- **AND** handle missing or invalid schemas gracefully
+- **THEN** Zustand SHALL validate the stored version against the current version
+- **AND** the system SHALL handle version mismatches via `onRehydrateStorage` callback
 
 ### Requirement: Theme storage structure
 
-The system SHALL store theme data in a structured format that allows for extensibility.
+The system SHALL store theme data using Zustand's persist middleware.
 
 #### Scenario: Theme data structure
 
 - **WHEN** theme data is persisted
-- **THEN** it SHALL include at minimum:
-  - `schemaVersion`: string (e.g., "1.0.0")
+- **THEN** it SHALL include:
   - `mode`: ThemeValue type ('system' | 'light' | 'dark')
-  - `lastUpdated`: ISO timestamp
+  - `version`: number (managed by Zustand persist middleware)
 
 ### Requirement: Storage key naming
 
@@ -47,10 +46,10 @@ The system SHALL use namespaced storage keys to avoid collisions.
 
 ### Requirement: Migration support preparation
 
-The system SHALL be designed to support future schema migrations.
+The system SHALL be designed to support future schema migrations using Zustand's persist middleware.
 
 #### Scenario: Future migration handling
 
-- **WHEN** the schema version in storage does not match the current version
-- **THEN** the system SHALL provide a migration path or reset to defaults
-- **AND** log the migration for debugging purposes
+- **WHEN** the stored version does not match the current version
+- **THEN** the system SHALL provide a migration path via Zustand's `migrate` option
+- **OR** reset to defaults and log the migration for debugging
