@@ -1,0 +1,21 @@
+{
+  "title": "Settings",
+  "theme": {
+    "title": "Theme",
+    "description": "Choose your preferred appearance"
+  },
+  "language": {
+    "title": "Language",
+    "autoDetected": "Auto-detected",
+    "english": "English",
+    "spanish": "Español"
+  },
+  "signIn": {
+    "title": "Sign In",
+    "description": "Access your account"
+  },
+  "buildInfo": {
+    "title": "Build Information",
+    "description": "Version and environment details"
+  }
+}

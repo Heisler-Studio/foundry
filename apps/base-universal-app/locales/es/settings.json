@@ -1,0 +1,21 @@
+{
+  "title": "Configuración",
+  "theme": {
+    "title": "Tema",
+    "description": "Elige tu apariencia preferida"
+  },
+  "language": {
+    "title": "Idioma",
+    "autoDetected": "Detectado automáticamente",
+    "english": "English",
+    "spanish": "Español"
+  },
+  "signIn": {
+    "title": "Iniciar Sesión",
+    "description": "Accede a tu cuenta"
+  },
+  "buildInfo": {
+    "title": "Información de Compilación",
+    "description": "Detalles de versión y entorno"
+  }
+}
