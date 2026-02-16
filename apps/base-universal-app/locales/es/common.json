@@ -1,0 +1,12 @@
+{
+  "appName": "Foundry",
+  "loading": "Cargando...",
+  "error": "Error",
+  "retry": "Reintentar",
+  "cancel": "Cancelar",
+  "save": "Guardar",
+  "close": "Cerrar",
+  "back": "Atrás",
+  "next": "Siguiente",
+  "done": "Hecho"
+}

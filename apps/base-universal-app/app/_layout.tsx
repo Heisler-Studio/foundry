@@ -1,5 +1,6 @@
 import '../global.css';
 
+import { I18nProvider } from '@/providers/I18nProvider';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Stack } from 'expo-router';
@@ -18,10 +19,12 @@ function Navigation() {
 export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <StatusBar animated style="auto" />
-        <Navigation />
-      </ThemeProvider>
+      <I18nProvider>
+        <ThemeProvider>
+          <StatusBar animated style="auto" />
+          <Navigation />
+        </ThemeProvider>
+      </I18nProvider>
     </QueryClientProvider>
   );
 }
