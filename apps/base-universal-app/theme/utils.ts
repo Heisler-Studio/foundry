@@ -1,6 +1,16 @@
 import { Appearance } from 'react-native';
-import { themeColors, type ThemeColorKey, type ThemeColorPalette } from './colors';
-import { THEME_DARK, THEME_LIGHT, THEME_SYSTEM, type ResolvedTheme, type ThemeMode } from './types';
+import {
+  themeColors,
+  type ThemeColorKey,
+  type ThemeColorPalette,
+} from './colors';
+import {
+  THEME_DARK,
+  THEME_LIGHT,
+  THEME_SYSTEM,
+  type ResolvedTheme,
+  type ThemeMode,
+} from './types';
 
 /**
  * Resolves the theme mode to either 'light' or 'dark' based on system preference when in 'system' mode
@@ -32,6 +42,9 @@ export const getPreviewColors = (mode: ThemeMode): ThemeColorPalette => {
  * Gets a specific color value from the theme palette
  * Use this for iOS tintColor props or other native components that need raw RGBA values
  */
-export const getThemeColor = (resolvedTheme: ResolvedTheme, colorKey: ThemeColorKey): string => {
+export const getThemeColor = (
+  resolvedTheme: ResolvedTheme,
+  colorKey: ThemeColorKey,
+): string => {
   return themeColors[resolvedTheme][colorKey];
 };

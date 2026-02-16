@@ -11,7 +11,11 @@ interface ThemePreviewCardProps {
   onSelect: () => void;
 }
 
-const ThemePreviewCard = ({ theme, isSelected, onSelect }: ThemePreviewCardProps) => {
+const ThemePreviewCard = ({
+  theme,
+  isSelected,
+  onSelect,
+}: ThemePreviewCardProps) => {
   const getCardStyles = () => {
     const previewColors = getPreviewColors(theme);
 
@@ -32,8 +36,7 @@ const ThemePreviewCard = ({ theme, isSelected, onSelect }: ThemePreviewCardProps
       accessibilityState={{ selected: isSelected }}
       className={`rounded-xl overflow-hidden border-2 ${
         isSelected ? 'border-primary' : 'border-transparent'
-      }`}
-    >
+      }`}>
       <View className="w-24 h-32" style={styles.container}>
         {/* Mock Header */}
         <View className="h-6 mx-2 mt-2 rounded-t" style={styles.header} />
@@ -51,7 +54,9 @@ const ThemePreviewCard = ({ theme, isSelected, onSelect }: ThemePreviewCardProps
 
       {/* Label */}
       <View className={`py-2 ${isSelected ? 'bg-primary/10' : 'bg-muted'}`}>
-        <Text className="text-center text-xs font-medium capitalize">{theme}</Text>
+        <Text className="text-center text-xs font-medium capitalize">
+          {theme}
+        </Text>
       </View>
     </Pressable>
   );

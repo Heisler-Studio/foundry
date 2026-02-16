@@ -24,7 +24,11 @@ export const ModalHeader = ({ showCloseRightIcon }: ModalHeaderProps) => {
   return (
     <View className="justify-between">
       {showCloseRightIcon ? (
-        <Button variant="link" size="icon" className="self-end" onPress={handleClose}>
+        <Button
+          variant="link"
+          size="icon"
+          className="self-end"
+          onPress={handleClose}>
           <Icon
             as={X}
             name="xmark.circle"

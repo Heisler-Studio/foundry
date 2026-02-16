@@ -105,8 +105,7 @@ If the user mentioned a specific change name, read its artifacts for context.
 
 Think freely. When insights crystallize, you might offer:
 
-- "This feels solid enough to start a change. Want me to create one?"
-  → Can transition to `/opsx-new` or `/opsx-ff`
+- "This feels solid enough to start a change. Want me to create one?" → Can transition to `/opsx-new` or `/opsx-ff`
 - Or keep exploring - no pressure to formalize
 
 ### When a change exists

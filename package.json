@@ -7,7 +7,7 @@
   "scripts": {
     "build": "pnpm -r run build",
     "lint": "pnpm -r exec eslint . -c ../../packages/config/eslint.config.js",
-    "format": "prettier --write '**/*.{ts,tsx,md,json}' --config ./packages/config/.prettierrc --ignore-unknown",
+    "format": "prettier --write '**/*.{ts,tsx,md,json}' --config ./.prettierrc --ignore-unknown",
     "prepare": "husky"
   },
   "keywords": [],
@@ -25,10 +25,10 @@
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
       "eslint --fix --config ./packages/config/eslint.config.js",
-      "prettier --write --config ./packages/config/.prettierrc"
+      "prettier --write --config ./.prettierrc"
     ],
     "*.{json,md}": [
-      "prettier --write --config ./packages/config/.prettierrc"
+      "prettier --write --config ./.prettierrc"
     ]
   },
   "pnpm": {

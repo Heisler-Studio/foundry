@@ -43,14 +43,14 @@ The monorepo has a `@foundry/data` package that encapsulates HTTP requests, hook
 
 **Rationale:**
 
-| Criterion                  | Independent App                                                      | Expo API Routes + EAS                       |
-| -------------------------- | -------------------------------------------------------------------- | ------------------------------------------- |
-| **Monorepo alignment**     | Creates new `apps/api-server` directory, follows established pattern | Integrates with existing Expo app structure |
-| **Code sharing**           | Requires duplicating types/endpoints between packages                | Reuses `@foundry/data` package directly     |
-| **Deployment**             | Independent pipeline, more complex                                   | Single `eas deploy` command                 |
-| **Cold starts**            | May be faster depending on hosting                                   | Cloudflare Workers (30s timeout)            |
-| **Scaling**                | Requires explicit configuration                                      | Automatic with Cloudflare Workers           |
-| **Development experience** | Full server framework (Express/Fastify)                              | Expo-native, minimal new concepts           |
+| Criterion | Independent App | Expo API Routes + EAS |
+| --- | --- | --- |
+| **Monorepo alignment** | Creates new `apps/api-server` directory, follows established pattern | Integrates with existing Expo app structure |
+| **Code sharing** | Requires duplicating types/endpoints between packages | Reuses `@foundry/data` package directly |
+| **Deployment** | Independent pipeline, more complex | Single `eas deploy` command |
+| **Cold starts** | May be faster depending on hosting | Cloudflare Workers (30s timeout) |
+| **Scaling** | Requires explicit configuration | Automatic with Cloudflare Workers |
+| **Development experience** | Full server framework (Express/Fastify) | Expo-native, minimal new concepts |
 
 **Key factors favoring Expo API Routes:**
 
@@ -120,13 +120,13 @@ apps/base-universal-app/app/api/
 
 ## Risks / Trade-offs
 
-| Risk                               | Severity | Mitigation                                                                            |
-| ---------------------------------- | -------- | ------------------------------------------------------------------------------------- |
-| **Cloudflare Workers limitations** | Medium   | Use web-compatible databases (Turso, Neon, Supabase). Avoid Node.js-specific modules. |
-| **Cold start latency**             | Low      | Cache commonly accessed data at edge. Consider warm-up pings.                         |
-| **Cannot use filesystem**          | Medium   | Use cloud databases. Store uploads via presigned URLs to S3/R2.                       |
-| **30-second timeout**              | Low      | Offload long-running tasks to async jobs. Use streaming for large responses.          |
-| **Handler serves dual purpose**    | Low      | Clear separation of concerns - client makes HTTP calls, server returns direct values. |
+| Risk | Severity | Mitigation |
+| --- | --- | --- |
+| **Cloudflare Workers limitations** | Medium | Use web-compatible databases (Turso, Neon, Supabase). Avoid Node.js-specific modules. |
+| **Cold start latency** | Low | Cache commonly accessed data at edge. Consider warm-up pings. |
+| **Cannot use filesystem** | Medium | Use cloud databases. Store uploads via presigned URLs to S3/R2. |
+| **30-second timeout** | Low | Offload long-running tasks to async jobs. Use streaming for large responses. |
+| **Handler serves dual purpose** | Low | Clear separation of concerns - client makes HTTP calls, server returns direct values. |
 
 **Trade-offs:**
 

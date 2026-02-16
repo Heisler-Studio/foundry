@@ -178,11 +178,7 @@ Created: `openspec/changes/<name>/`
 The folder structure:
 ```
 
-openspec/changes/<name>/
-├── proposal.md ← Why we're doing this (empty, we'll fill it)
-├── design.md ← How we'll build it (empty)
-├── specs/ ← Detailed requirements (empty)
-└── tasks.md ← Implementation checklist (empty)
+openspec/changes/<name>/ ├── proposal.md ← Why we're doing this (empty, we'll fill it) ├── design.md ← How we'll build it (empty) ├── specs/ ← Detailed requirements (empty) └── tasks.md ← Implementation checklist (empty)
 
 ```
 

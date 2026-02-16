@@ -53,8 +53,7 @@ Implement tasks from an OpenSpec change.
 
 4. **Read context files**
 
-   Read the files listed in `contextFiles` from the apply instructions output.
-   The files depend on the schema being used:
+   Read the files listed in `contextFiles` from the apply instructions output. The files depend on the schema being used:
    - **spec-driven**: proposal, specs, design, tasks
    - Other schemas: follow the contextFiles from CLI output
 

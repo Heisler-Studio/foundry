@@ -67,7 +67,10 @@ export interface YourComponentProps extends BaseComponentProps {
 Add the export to `src/index.ts`:
 
 ```typescript
-export { YourComponent, type YourComponentProps } from './foundry/YourComponent';
+export {
+  YourComponent,
+  type YourComponentProps,
+} from './foundry/YourComponent';
 ```
 
 ### Step 5: Build and Test
@@ -182,7 +185,11 @@ export interface ButtonProps extends PressableProps {
 
 ```tsx
 {
-  typeof children === 'string' ? <Text className="text-base">{children}</Text> : children;
+  typeof children === 'string' ? (
+    <Text className="text-base">{children}</Text>
+  ) : (
+    children
+  );
 }
 ```
 
@@ -191,9 +198,11 @@ export interface ButtonProps extends PressableProps {
 ```tsx
 import React, { forwardRef } from 'react';
 
-export const YourComponent = forwardRef<View, YourComponentProps>(({ propName, ...props }, ref) => {
-  return <View ref={ref} {...props} />;
-});
+export const YourComponent = forwardRef<View, YourComponentProps>(
+  ({ propName, ...props }, ref) => {
+    return <View ref={ref} {...props} />;
+  },
+);
 
 YourComponent.displayName = 'YourComponent';
 ```

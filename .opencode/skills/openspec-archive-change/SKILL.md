@@ -19,8 +19,7 @@ Archive a completed change in the experimental workflow.
 
    Run `openspec list --json` to get available changes. Use the **AskUserQuestion tool** to let the user select.
 
-   Show only active changes (not already archived).
-   Include the schema used for each change if available.
+   Show only active changes (not already archived). Include the schema used for each change if available.
 
    **IMPORTANT**: Do NOT guess or auto-select a change. Always let the user choose.
 
