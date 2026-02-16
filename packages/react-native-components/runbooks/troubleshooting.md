@@ -128,8 +128,7 @@ config.resolver.nodeModulesPaths = [
 
 **Error**: Metro doesn't follow symlinks
 
-**Solution**:
-Ensure `metro.config.js` has symlink support:
+**Solution**: Ensure `metro.config.js` has symlink support:
 
 ```javascript
 config.resolver.disableHierarchicalLookup = false;
@@ -165,8 +164,7 @@ config.resolver.unstable_enableSymlinks = true;
 
 **Error**: Strict TypeScript errors in consuming app
 
-**Solution**:
-Ensure component props extend appropriate base types:
+**Solution**: Ensure component props extend appropriate base types:
 
 ```typescript
 // Good - extends PressableProps

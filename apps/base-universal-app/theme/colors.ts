@@ -94,12 +94,17 @@ export type ThemeColorKey = keyof typeof colorDefinitions;
 export type ThemeColorPalette = Record<ThemeColorKey, string>;
 
 // All theme color keys as an array
-export const THEME_COLOR_KEYS: ThemeColorKey[] = Object.keys(colorDefinitions) as ThemeColorKey[];
+export const THEME_COLOR_KEYS: ThemeColorKey[] = Object.keys(
+  colorDefinitions,
+) as ThemeColorKey[];
 
 // Theme colors organized by mode - built from definitions
 export const themeColors = {
   light: Object.fromEntries(
-    Object.entries(colorDefinitions).map(([key, values]) => [key, values.light]),
+    Object.entries(colorDefinitions).map(([key, values]) => [
+      key,
+      values.light,
+    ]),
   ) as ThemeColorPalette,
   dark: Object.fromEntries(
     Object.entries(colorDefinitions).map(([key, values]) => [key, values.dark]),
@@ -108,6 +113,8 @@ export const themeColors = {
 
 // Export individual keys as an object for convenient access
 // Usage: themeColor.background instead of 'background'
-export const themeColor = Object.fromEntries(THEME_COLOR_KEYS.map((key) => [key, key])) as {
+export const themeColor = Object.fromEntries(
+  THEME_COLOR_KEYS.map((key) => [key, key]),
+) as {
   [K in ThemeColorKey]: K;
 };

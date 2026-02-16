@@ -14,7 +14,10 @@ type BaseContainerProps = {
  * * ScrollView
  * * Header offset with translucent scroll-behind behavios on iOS
  */
-export const BaseContainer = ({ contentContainerClassName, children }: BaseContainerProps) => {
+export const BaseContainer = ({
+  contentContainerClassName,
+  children,
+}: BaseContainerProps) => {
   const headerHeight = useHeaderHeight();
 
   return (
@@ -23,8 +26,7 @@ export const BaseContainer = ({ contentContainerClassName, children }: BaseConta
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       // Offset is usually the height of your header if using one
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
-    >
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}>
       <ScrollView
         className="bg-background"
         keyboardShouldPersistTaps="handled"
@@ -35,8 +37,7 @@ export const BaseContainer = ({ contentContainerClassName, children }: BaseConta
           paddingTop: Platform.OS !== 'ios' ? headerHeight : 0,
         }}
         contentContainerClassName={contentContainerClassName}
-        keyboardDismissMode="interactive"
-      >
+        keyboardDismissMode="interactive">
         {children}
       </ScrollView>
     </KeyboardAvoidingView>

@@ -10,7 +10,9 @@ type IconProps = ComponentProps<typeof BaseIcon> & {
 // TODO: Extract `text-` className and automatically resolve the tintColor using getThemeColor
 export const Icon = (props: IconProps) => {
   return Platform.select({
-    ios: props.name ? <SymbolView name={props.name} tintColor={props.color} /> : null,
+    ios: props.name ? (
+      <SymbolView name={props.name} tintColor={props.color} />
+    ) : null,
     default: <BaseIcon {...props} />,
   });
 };

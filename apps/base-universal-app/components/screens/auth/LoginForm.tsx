@@ -16,12 +16,13 @@ export default function LoginForm() {
         <FontAwesome.Button
           name="apple"
           className="self-center"
-          backgroundColor={BRAND_APPLE_BLACK}
-        >
+          backgroundColor={BRAND_APPLE_BLACK}>
           Sign in with Apple
         </FontAwesome.Button>
       </View>
-      <Text className="text-muted-foreground text-sm">By signing up, you agree to blah, blah</Text>
+      <Text className="text-muted-foreground text-sm">
+        By signing up, you agree to blah, blah
+      </Text>
     </View>
   );
 }

@@ -34,8 +34,7 @@ Start a new change using the experimental artifact-driven approach.
    openspec new change "<name>"
    ```
 
-   Add `--schema <name>` only if the user requested a specific workflow.
-   This creates a scaffolded change at `openspec/changes/<name>/` with the selected schema.
+   Add `--schema <name>` only if the user requested a specific workflow. This creates a scaffolded change at `openspec/changes/<name>/` with the selected schema.
 
 4. **Show the artifact status**
 
@@ -45,8 +44,7 @@ Start a new change using the experimental artifact-driven approach.
 
    This shows which artifacts need to be created and which are ready (dependencies satisfied).
 
-5. **Get instructions for the first artifact**
-   The first artifact depends on the schema. Check the status output to find the first artifact with status "ready".
+5. **Get instructions for the first artifact** The first artifact depends on the schema. Check the status output to find the first artifact with status "ready".
 
    ```bash
    openspec instructions <first-artifact-id> --change "<name>"

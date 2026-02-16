@@ -1,5 +1,10 @@
 import { Button } from '@/components/primitives/ThemedButton';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/primitives/ThemedCard';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/primitives/ThemedCard';
 import { Input } from '@/components/primitives/ThemedInput';
 import { Text } from '@/components/primitives/ThemedText';
 import { useHealthCheck } from '@foundry/data';
@@ -22,17 +27,23 @@ export default function StyledExample() {
 
       {/* Basic Styling */}
       <View className="p-4">
-        <Text className="text-lg font-semibold mb-4 text-foreground">Basic Styling</Text>
+        <Text className="text-lg font-semibold mb-4 text-foreground">
+          Basic Styling
+        </Text>
         <View className="bg-muted p-4 rounded-lg border border-border">
           <Suspense fallback={<Loading />}>
-            <Text className="text-foreground">Server status: {healthCheckData.status}</Text>
+            <Text className="text-foreground">
+              Server status: {healthCheckData.status}
+            </Text>
           </Suspense>
         </View>
       </View>
 
       {/* Custom Design Tokens */}
       <View className="p-4">
-        <Text className="text-lg font-semibold mb-4 text-foreground">Custom Design Tokens</Text>
+        <Text className="text-lg font-semibold mb-4 text-foreground">
+          Custom Design Tokens
+        </Text>
         <View className="flex-row gap-2">
           <View className="bg-primary px-4 py-2 rounded-md">
             <Text className="text-white font-medium">Primary</Text>
@@ -45,7 +56,9 @@ export default function StyledExample() {
 
       {/* Shared Components */}
       <View className="p-4">
-        <Text className="text-lg font-semibold mb-4 text-foreground">Shared Components</Text>
+        <Text className="text-lg font-semibold mb-4 text-foreground">
+          Shared Components
+        </Text>
 
         <View className="mt-4">
           <Card className="border-primary">
@@ -53,7 +66,10 @@ export default function StyledExample() {
               <CardTitle>Email</CardTitle>
             </CardHeader>
             <CardContent>
-              <Input placeholder="Enter your email" keyboardType="email-address" />
+              <Input
+                placeholder="Enter your email"
+                keyboardType="email-address"
+              />
             </CardContent>
           </Card>
         </View>
@@ -65,8 +81,8 @@ export default function StyledExample() {
             </CardHeader>
             <CardContent className="gap-2">
               <Text className="text-muted-foreground text-sm">
-                This card demonstrates app-level `className` overrides layered on top of base
-                components.
+                This card demonstrates app-level `className` overrides layered
+                on top of base components.
               </Text>
               <Button variant="outline" className="border-secondary">
                 <Text>Overridden Outline</Text>
@@ -78,7 +94,9 @@ export default function StyledExample() {
 
       {/* Responsive Design */}
       <View className="p-4">
-        <Text className="text-lg font-semibold mb-4 text-foreground">Responsive Design</Text>
+        <Text className="text-lg font-semibold mb-4 text-foreground">
+          Responsive Design
+        </Text>
         <View className="flex-col sm:flex-row gap-2">
           <View className="flex-1 bg-muted p-3 rounded-md">
             <Text className="text-sm text-muted-foreground">Column 1</Text>
@@ -91,7 +109,9 @@ export default function StyledExample() {
 
       {/* Spacing Scale */}
       <View className="p-4">
-        <Text className="text-lg font-semibold mb-4 text-foreground">Spacing Scale</Text>
+        <Text className="text-lg font-semibold mb-4 text-foreground">
+          Spacing Scale
+        </Text>
         <View className="gap-2">
           <View className="w-4 h-4 bg-primary rounded" />
           <View className="w-8 h-4 bg-primary rounded" />
@@ -102,7 +122,9 @@ export default function StyledExample() {
 
       {/* Border Radius */}
       <View className="p-4">
-        <Text className="text-lg font-semibold mb-4 text-foreground">Border Radius</Text>
+        <Text className="text-lg font-semibold mb-4 text-foreground">
+          Border Radius
+        </Text>
         <View className="flex-row gap-3 flex-wrap">
           <View className="w-16 h-16 bg-secondary rounded-sm" />
           <View className="w-16 h-16 bg-secondary rounded-md" />

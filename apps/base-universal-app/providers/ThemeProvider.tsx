@@ -1,5 +1,10 @@
 import { useThemeStore } from '@/store/theme-store';
-import { THEME_DARK, THEME_SYSTEM, type ResolvedTheme, type ThemeMode } from '@/theme/types';
+import {
+  THEME_DARK,
+  THEME_SYSTEM,
+  type ResolvedTheme,
+  type ThemeMode,
+} from '@/theme/types';
 import { resolveTheme } from '@/theme/utils';
 import { useColorScheme } from 'nativewind';
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
@@ -57,7 +62,9 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
   // Note: Cannot wrap in View - breaks NavigationContainer in Expo Router.
   // NativeWind handles dark mode via setColorScheme and CSS variables.
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+  return (
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+  );
 };
 
 export const useTheme = () => {

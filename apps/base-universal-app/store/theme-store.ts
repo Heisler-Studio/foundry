@@ -1,7 +1,11 @@
 import { createStorage } from '@/lib/storage';
 import { THEME_SYSTEM, type ThemeMode } from '@/theme/types';
 import { create } from 'zustand';
-import { createJSONStorage, persist, type StateStorage } from 'zustand/middleware';
+import {
+  createJSONStorage,
+  persist,
+  type StateStorage,
+} from 'zustand/middleware';
 
 interface ThemeState {
   mode: ThemeMode;
