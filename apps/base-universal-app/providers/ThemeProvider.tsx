@@ -1,4 +1,4 @@
-import { useThemeStore } from '@/store/theme-store';
+import { useSettingsStore } from '@/store/settings-store';
 import {
   THEME_DARK,
   THEME_SYSTEM,
@@ -24,8 +24,8 @@ interface ThemeProviderProps {
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const { colorScheme, setColorScheme } = useColorScheme();
-  const mode = useThemeStore((state) => state.mode);
-  const setMode = useThemeStore((state) => state.setMode);
+  const mode = useSettingsStore((state) => state.theme.mode);
+  const setMode = useSettingsStore((state) => state.theme.setMode);
 
   // Calculate the effective theme based on mode and system preference
   const effectiveTheme = useMemo((): ResolvedTheme => {

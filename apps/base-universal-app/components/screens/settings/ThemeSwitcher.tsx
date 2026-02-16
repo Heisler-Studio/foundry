@@ -1,5 +1,5 @@
 import { Text } from '@/components/primitives/ThemedText';
-import { useThemeStore } from '@/store/theme-store';
+import { useSettingsStore } from '@/store/settings-store';
 import { themeColor } from '@/theme/colors';
 import { THEME_VALUES, type ThemeMode } from '@/theme/types';
 import { getPreviewColors } from '@/theme/utils';
@@ -63,7 +63,8 @@ const ThemePreviewCard = ({
 };
 
 export const ThemeSwitcher = () => {
-  const { mode, setMode } = useThemeStore();
+  const mode = useSettingsStore((state) => state.theme.mode);
+  const setMode = useSettingsStore((state) => state.theme.setMode);
 
   const handleSelect = (theme: ThemeMode) => {
     setMode(theme);
