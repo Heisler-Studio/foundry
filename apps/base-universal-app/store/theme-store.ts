@@ -14,10 +14,9 @@ interface ThemeState {
 
 const STORAGE_KEY = '@foundry/theme-settings';
 
-// createStorage() detects the runtime environment and returns the appropriate
-// storage implementation. In Expo Go, it uses in-memory storage since
-// react-native-mmkv requires native modules not available in Expo Go.
-// In development builds, it uses MMKV for persistent storage.
+// createStorage() returns MMKV storage for production apps.
+// MMKV v4+ works on web and native. If MMKV is unavailable (e.g., Expo Go),
+// it falls back to no-op storage - settings won't persist but app won't crash.
 const storage = createStorage();
 
 const storageAdapter: StateStorage = {

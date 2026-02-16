@@ -10,7 +10,7 @@ export default ts.config(
   {
     rules: {
       '@typescript-eslint/no-unused-vars': 'error',
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-console': ['warn', { allow: ['info', 'warn', 'error'] }],
       // Disable it globally first to ensure JS files are ignored
       '@typescript-eslint/no-require-imports': 'off',
     },

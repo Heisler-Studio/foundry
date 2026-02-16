@@ -1,6 +1,4 @@
-import { NativeModules, Platform } from 'react-native';
-
-export interface StorageAdapter {
+interface StorageAdapter {
   getItem: (name: string) => string | null;
   setItem: (name: string, value: string) => void;
   removeItem: (name: string) => void;
@@ -9,9 +7,14 @@ export interface StorageAdapter {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let mmkvInstance: any = null;
 
+/**
+ * Creates MMKV storage instance.
+ * MMKV v4+ works on both web and native platforms.
+ * This is the primary storage for production apps.
+ */
 const createMMKVStorage = (): StorageAdapter => {
   if (!mmkvInstance) {
-    // Dynamic require to prevent import errors in Expo Go
+    // Dynamic require to prevent import errors if MMKV isn't available
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { createMMKV } = require('react-native-mmkv');
     mmkvInstance = createMMKV({ id: 'theme-storage' });
@@ -24,41 +27,40 @@ const createMMKVStorage = (): StorageAdapter => {
   };
 };
 
-const createInMemoryStorage = (): StorageAdapter => {
-  const storage = new Map<string, string>();
-
+/**
+ * Creates a no-op storage adapter that does nothing.
+ * This fallback is used when MMKV is unavailable (e.g., Expo Go).
+ * Settings will not persist in this mode, but the app won't crash.
+ */
+const createNoOpStorage = (): StorageAdapter => {
   return {
-    getItem: (name) => storage.get(name) ?? null,
-    setItem: (name, value) => storage.set(name, value),
-    removeItem: (name) => storage.delete(name),
+    getItem: () => null,
+    setItem: () => {
+      /* no-op - storage unavailable */
+    },
+    removeItem: () => {
+      /* no-op - storage unavailable */
+    },
   };
 };
 
-const isExpoGo = (): boolean => {
-  try {
-    return NativeModules.ExponentConstants?.appOwnership === 'expo';
-  } catch {
-    return false;
-  }
-};
-
+/**
+ * Creates the appropriate storage adapter for the current environment.
+ *
+ * MMKV v4+ works on both web and native platforms, so we always try it first.
+ * If MMKV throws (typically in Expo Go where native modules are missing),
+ * we fall back to no-op storage. This is intentional - we prioritize the
+ * production native app experience. Settings won't persist in Expo Go or
+ * other environments where native modules are unavailable, but the app
+ * will continue to function without crashing.
+ */
 export const createStorage = (): StorageAdapter => {
-  if (Platform.OS === 'web') {
-    try {
-      return createMMKVStorage();
-    } catch {
-      return createInMemoryStorage();
-    }
-  }
-
-  if (isExpoGo()) {
-    console.warn('[storage] Using in-memory storage (Expo Go detected)');
-    return createInMemoryStorage();
-  }
-
   try {
     return createMMKVStorage();
   } catch {
-    return createInMemoryStorage();
+    console.info(
+      '[storage] MMKV unavailable, using no-op storage. Settings will not persist.',
+    );
+    return createNoOpStorage();
   }
 };

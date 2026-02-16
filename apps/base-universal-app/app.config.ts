@@ -12,7 +12,7 @@ const ICON = './assets/images/icon.png';
 const SCHEME = 'heislerstudiofoundry';
 
 export default (): ExpoConfig => {
-  console.log('⚙️ Building app for environment:', process.env.APP_ENV);
+  console.info('⚙️ Building app for environment:', process.env.APP_ENV);
   const { name, bundleIdentifier, icon, packageName, scheme } =
     getDynamicAppConfig(
       (process.env.APP_ENV as 'development' | 'preview' | 'production') ||
