@@ -1,0 +1,26 @@
+{
+  "enabledPlugins": {
+    "expo@claude-plugins-official": true
+  },
+  "permissions": {
+    "allow": [
+      "Bash(pnpm install)",
+      "Bash(pnpm run:*)",
+      "Bash(pnpm --filter:*)",
+      "Bash(pnpm dlx:*)",
+      "Bash(npx expo:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx eslint:*)",
+      "Bash(npx prettier:*)",
+      "Bash(npm view:*)",
+      "Bash(turbo run:*)",
+      "Bash(git *)",
+      "Bash(linear:*)",
+      "Bash(asdf list:*)",
+      "WebFetch(domain:docs.expo.dev)",
+      "WebFetch(domain:www.nativewind.dev)",
+      "WebFetch(domain:reactnativereusables.com)",
+      "WebFetch(domain:turborepo.dev)"
+    ]
+  }
+}
