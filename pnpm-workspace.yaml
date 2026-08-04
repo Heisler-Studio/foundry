@@ -1,0 +1,7 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+# Metro resolves from disk, not the importer's scope, so an isolated store hides
+# transitive deps from the bundler — NativeWind's react-native-css-interop fails first.
+nodeLinker: hoisted
