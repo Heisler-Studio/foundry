@@ -66,8 +66,10 @@ the Metro `input` at wherever this app keeps source.
 
 Add `nativewind-env.d.ts` to `include` in `tsconfig.json`, and create `expo-env.d.ts` containing
 `/// <reference types="expo/types" />` — without it, `import '@/global.css'` fails to typecheck
-(TS2882). Expo generates that file but gitignores it by default; this repo commits it so a clean
-clone can typecheck.
+(TS2882). Expo generates that file but gitignores it by default; this repo **commits it anyway** so
+a clean clone can `typecheck` before anything has run. Expo CLI re-adds its `@generated expo-cli`
+ignore block to the app's `.gitignore` on every sync — leave it, since `.gitignore` has no effect on
+a file git already tracks.
 
 ## 4. Add components
 
