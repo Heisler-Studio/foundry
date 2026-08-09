@@ -3,15 +3,15 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import type { DbHandle } from '../src/db/client.ts';
 import { ensureCoreDestinations } from '../src/db/core-destinations.ts';
 import { runMigrations } from '../src/db/migrate.ts';
-import { allocation, destination, plan, security, step, target } from '../src/db/schema/index.ts';
+import { allocation, destination, move, plan, security, target } from '../src/db/schema/index.ts';
 import { createTestDb } from './support/database.ts';
 
 const databaseUrl = process.env.DATABASE_URL;
 
 // One statement per execute: node-postgres' extended protocol refuses a multi-statement query.
 const dropStatements = [
-  sql`drop table if exists "allocation", "step", "target", "plan", "destination" cascade`,
-  sql`drop type if exists "plan_status", "destination_kind", "step_direction", "step_status" cascade`,
+  sql`drop table if exists "allocation", "move", "target", "plan", "destination" cascade`,
+  sql`drop type if exists "plan_status", "destination_kind", "move_direction", "move_status" cascade`,
   sql`drop schema if exists drizzle cascade`,
 ];
 
@@ -207,7 +207,7 @@ describe.skipIf(!databaseUrl)('the plan model against Postgres 17', () => {
       const voo = await securityDestination('VOO');
 
       const [sale] = await handle.db
-        .insert(step)
+        .insert(move)
         .values({
           planId: row!.id,
           sequence: 1,
@@ -219,23 +219,23 @@ describe.skipIf(!databaseUrl)('the plan model against Postgres 17', () => {
         .returning();
 
       const [paydown] = await handle.db
-        .insert(step)
+        .insert(move)
         .values({
           planId: row!.id,
           sequence: 2,
           direction: 'into',
           destinationId: await destinationFor('margin_paydown'),
           amount: '42000.0000',
-          dependsOnStepId: sale!.id,
+          dependsOnMoveId: sale!.id,
         })
         .returning();
 
-      expect(paydown!.dependsOnStepId).toBe(sale!.id);
+      expect(paydown!.dependsOnMoveId).toBe(sale!.id);
       expect(paydown!.amount).toBe('42000.0000');
       expect(paydown!.status).toBe('pending');
     });
 
-    it('refuses two steps at the same position on one path', async () => {
+    it('refuses two moves at the same position on one path', async () => {
       const [row] = await handle.db.insert(plan).values(draft('collision')).returning();
       const cash = await destinationFor('cash');
       const values = {
@@ -246,17 +246,17 @@ describe.skipIf(!databaseUrl)('the plan model against Postgres 17', () => {
         amount: '100.0000',
       };
 
-      await handle.db.insert(step).values(values);
-      await rejectedBy('step_plan_sequence_unique', () => handle.db.insert(step).values(values));
+      await handle.db.insert(move).values(values);
+      await rejectedBy('move_plan_sequence_unique', () => handle.db.insert(move).values(values));
     });
 
-    it('refuses a step marked done without an execution date', async () => {
+    it('refuses a move marked done without an execution date', async () => {
       const [row] = await handle.db.insert(plan).values(draft('half done')).returning();
 
       const cash = await destinationFor('cash');
 
-      await rejectedBy('step_executed_when_done', () =>
-        handle.db.insert(step).values({
+      await rejectedBy('move_executed_when_done', () =>
+        handle.db.insert(move).values({
           planId: row!.id,
           sequence: 1,
           direction: 'into',
@@ -267,13 +267,13 @@ describe.skipIf(!databaseUrl)('the plan model against Postgres 17', () => {
       );
     });
 
-    it('refuses a zero-dollar step', async () => {
+    it('refuses a zero-dollar move', async () => {
       const [row] = await handle.db.insert(plan).values(draft('nothing')).returning();
 
       const cash = await destinationFor('cash');
 
-      await rejectedBy('step_amount_positive', () =>
-        handle.db.insert(step).values({
+      await rejectedBy('move_amount_positive', () =>
+        handle.db.insert(move).values({
           planId: row!.id,
           sequence: 1,
           direction: 'into',
@@ -285,7 +285,7 @@ describe.skipIf(!databaseUrl)('the plan model against Postgres 17', () => {
   });
 
   describe('discarding a plan', () => {
-    it('takes its target, weights, and steps with it', async () => {
+    it('takes its target, weights, and moves with it', async () => {
       const [row] = await handle.db.insert(plan).values(draft('disposable')).returning();
       const [declared] = await handle.db.insert(target).values({ planId: row!.id }).returning();
       const cash = await destinationFor('cash');
@@ -293,7 +293,7 @@ describe.skipIf(!databaseUrl)('the plan model against Postgres 17', () => {
       await handle.db
         .insert(allocation)
         .values({ targetId: declared!.id, destinationId: cash, weight: '1.00000000' });
-      await handle.db.insert(step).values({
+      await handle.db.insert(move).values({
         planId: row!.id,
         sequence: 1,
         direction: 'into',
@@ -305,14 +305,14 @@ describe.skipIf(!databaseUrl)('the plan model against Postgres 17', () => {
 
       expect(await handle.db.select().from(target)).toHaveLength(0);
       expect(await handle.db.select().from(allocation)).toHaveLength(0);
-      expect(await handle.db.select().from(step)).toHaveLength(0);
+      expect(await handle.db.select().from(move)).toHaveLength(0);
     });
 
     it('keeps the destination, which outlives every plan that pointed at it', async () => {
       const [row] = await handle.db.insert(plan).values(draft('transient')).returning();
       const cash = await destinationFor('cash');
 
-      await handle.db.insert(step).values({
+      await handle.db.insert(move).values({
         planId: row!.id,
         sequence: 1,
         direction: 'into',
@@ -320,7 +320,7 @@ describe.skipIf(!databaseUrl)('the plan model against Postgres 17', () => {
         amount: '100.0000',
       });
 
-      await rejectedBy('step_destination_id_destination_id_fk', () =>
+      await rejectedBy('move_destination_id_destination_id_fk', () =>
         handle.db.delete(destination).where(eq(destination.id, cash)),
       );
 

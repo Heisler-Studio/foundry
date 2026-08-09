@@ -1,5 +1,5 @@
 {
-  "id": "11e6d727-466a-4611-9714-7f74254593bb",
+  "id": "55532f17-74dd-4588-b1d4-bc8dd3fd1ab7",
   "prevId": "8713b72b-d358-4f9d-81c0-157ba3451365",
   "version": "7",
   "dialect": "postgresql",
@@ -84,6 +84,145 @@
         "destination_security_matches_kind": {
           "name": "destination_security_matches_kind",
           "value": "(\"destination\".\"kind\" = 'security') = (\"destination\".\"security_id\" is not null)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.move": {
+      "name": "move",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "plan_id": {
+          "name": "plan_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sequence": {
+          "name": "sequence",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "direction": {
+          "name": "direction",
+          "type": "move_direction",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "destination_id": {
+          "name": "destination_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount": {
+          "name": "amount",
+          "type": "numeric(19, 4)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "earliest_at": {
+          "name": "earliest_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "depends_on_move_id": {
+          "name": "depends_on_move_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "move_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
+        },
+        "executed_at": {
+          "name": "executed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "move_plan_id_plan_id_fk": {
+          "name": "move_plan_id_plan_id_fk",
+          "tableFrom": "move",
+          "tableTo": "plan",
+          "columnsFrom": [
+            "plan_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "move_destination_id_destination_id_fk": {
+          "name": "move_destination_id_destination_id_fk",
+          "tableFrom": "move",
+          "tableTo": "destination",
+          "columnsFrom": [
+            "destination_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "move_depends_on_move_id_move_id_fk": {
+          "name": "move_depends_on_move_id_move_id_fk",
+          "tableFrom": "move",
+          "tableTo": "move",
+          "columnsFrom": [
+            "depends_on_move_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "move_plan_sequence_unique": {
+          "name": "move_plan_sequence_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "plan_id",
+            "sequence"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "move_amount_positive": {
+          "name": "move_amount_positive",
+          "value": "\"move\".\"amount\" > 0"
+        },
+        "move_no_self_dependency": {
+          "name": "move_no_self_dependency",
+          "value": "\"move\".\"depends_on_move_id\" is null or \"move\".\"depends_on_move_id\" <> \"move\".\"id\""
+        },
+        "move_executed_when_done": {
+          "name": "move_executed_when_done",
+          "value": "(\"move\".\"status\" = 'done') = (\"move\".\"executed_at\" is not null)"
         }
       },
       "isRLSEnabled": false
@@ -598,145 +737,6 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.step": {
-      "name": "step",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "plan_id": {
-          "name": "plan_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "sequence": {
-          "name": "sequence",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "direction": {
-          "name": "direction",
-          "type": "step_direction",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "destination_id": {
-          "name": "destination_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "amount": {
-          "name": "amount",
-          "type": "numeric(19, 4)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "earliest_at": {
-          "name": "earliest_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "depends_on_step_id": {
-          "name": "depends_on_step_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "status": {
-          "name": "status",
-          "type": "step_status",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'pending'"
-        },
-        "executed_at": {
-          "name": "executed_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "step_plan_id_plan_id_fk": {
-          "name": "step_plan_id_plan_id_fk",
-          "tableFrom": "step",
-          "tableTo": "plan",
-          "columnsFrom": [
-            "plan_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "step_destination_id_destination_id_fk": {
-          "name": "step_destination_id_destination_id_fk",
-          "tableFrom": "step",
-          "tableTo": "destination",
-          "columnsFrom": [
-            "destination_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "no action"
-        },
-        "step_depends_on_step_id_step_id_fk": {
-          "name": "step_depends_on_step_id_step_id_fk",
-          "tableFrom": "step",
-          "tableTo": "step",
-          "columnsFrom": [
-            "depends_on_step_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "step_plan_sequence_unique": {
-          "name": "step_plan_sequence_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "plan_id",
-            "sequence"
-          ]
-        }
-      },
-      "policies": {},
-      "checkConstraints": {
-        "step_amount_positive": {
-          "name": "step_amount_positive",
-          "value": "\"step\".\"amount\" > 0"
-        },
-        "step_no_self_dependency": {
-          "name": "step_no_self_dependency",
-          "value": "\"step\".\"depends_on_step_id\" is null or \"step\".\"depends_on_step_id\" <> \"step\".\"id\""
-        },
-        "step_executed_when_done": {
-          "name": "step_executed_when_done",
-          "value": "(\"step\".\"status\" = 'done') = (\"step\".\"executed_at\" is not null)"
-        }
-      },
-      "isRLSEnabled": false
-    },
     "public.allocation": {
       "name": "allocation",
       "schema": "",
@@ -893,6 +893,23 @@
         "cash"
       ]
     },
+    "public.move_direction": {
+      "name": "move_direction",
+      "schema": "public",
+      "values": [
+        "into",
+        "out_of"
+      ]
+    },
+    "public.move_status": {
+      "name": "move_status",
+      "schema": "public",
+      "values": [
+        "pending",
+        "done",
+        "skipped"
+      ]
+    },
     "public.plan_status": {
       "name": "plan_status",
       "schema": "public",
@@ -902,23 +919,6 @@
         "active",
         "completed",
         "abandoned"
-      ]
-    },
-    "public.step_direction": {
-      "name": "step_direction",
-      "schema": "public",
-      "values": [
-        "into",
-        "out_of"
-      ]
-    },
-    "public.step_status": {
-      "name": "step_status",
-      "schema": "public",
-      "values": [
-        "pending",
-        "done",
-        "skipped"
       ]
     }
   },
