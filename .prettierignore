@@ -4,3 +4,4 @@ build/
 .turbo/
 .expo/
 pnpm-lock.yaml
+**/drizzle/meta/
