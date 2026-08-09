@@ -5,12 +5,14 @@ Heisler Studio's monorepo — Expo apps and the packages they share.
 ## Layout
 
 ```
-apps/
-  evergreen-bbd/    Expo SDK 57 app — personal investment tracking for a margin account
-packages/           shared packages (none yet — see ADR-0001)
+apps/                       deployable units — an app is not necessarily an Expo app
+  evergreen-bbd/            Expo SDK 57 app — personal investment tracking for a margin account
+  evergreen-bbd-service/    Node service: Postgres, engine, MCP, HTTP API (ADR-0004)
+packages/                   shared packages (none yet — see ADR-0001)
 docs/
-  adr/              architecture decisions
-  recipes/          reproducible setup procedures
+  adr/                      architecture decisions
+  design/                   agreed designs, per app
+  recipes/                  reproducible setup procedures
 ```
 
 ## Prerequisites
@@ -27,14 +29,18 @@ pnpm install
 Run from the root; Turborepo fans them out across workspaces.
 
 ```bash
-pnpm dev          # start the app in Expo
+pnpm dev          # start every workspace's dev task
 pnpm build        # export bundles
 pnpm lint
 pnpm typecheck
+pnpm test
 pnpm format       # prettier, with Tailwind class sorting
 ```
 
 Target one workspace with `pnpm --filter evergreen-bbd <script>`.
+
+The service needs Docker and 1Password —
+[`apps/evergreen-bbd-service/README.md`](apps/evergreen-bbd-service/README.md) has the loop.
 
 ## Adding an app
 

@@ -1,0 +1,24 @@
+name: evergreen-bbd
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-evergreen}
+      POSTGRES_USER: ${POSTGRES_USER:-evergreen}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD — see .env.example}
+    ports:
+      # 5433 on the host so this never fights a Postgres already listening on 5432.
+      - '${POSTGRES_PORT:-5433}:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-evergreen} -d ${POSTGRES_DB:-evergreen}']
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 5s
+
+volumes:
+  postgres-data:
