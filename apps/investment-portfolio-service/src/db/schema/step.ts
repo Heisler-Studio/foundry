@@ -1,5 +1,13 @@
 import { sql } from 'drizzle-orm';
-import { type AnyPgColumn, check, integer, pgEnum, pgTable, unique, uuid } from 'drizzle-orm/pg-core';
+import {
+  type AnyPgColumn,
+  check,
+  integer,
+  pgEnum,
+  pgTable,
+  unique,
+  uuid,
+} from 'drizzle-orm/pg-core';
 import { money, timestamptz } from '../columns.ts';
 import { destination } from './destination.ts';
 import { plan } from './plan.ts';

@@ -99,8 +99,8 @@ erDiagram
     PLAN ||--|| TARGET : declares
     PLAN ||--o{ STEP : "sequenced as"
     TARGET ||--o{ ALLOCATION : "weights across"
-    STEP }o--|| SINK : "moves money to"
-    ALLOCATION }o--|| SINK : "weights"
+    STEP }o--|| DESTINATION : "moves money to"
+    ALLOCATION }o--|| DESTINATION : "weights"
 ```
 
 **Portfolio state** is what the brokerage says is true, plus when it said so.
@@ -129,15 +129,15 @@ explicitly scoped lots out as "belongs in software." This is that software.
 |---|---|
 | `plan` | name, status: `draft → candidate → active → completed \| abandoned` |
 | `target` | the declarative end state — weights, rules, margin policy |
-| `allocation` | one weight against one sink |
-| `step` | one action: sequence, sink, amount, earliest date, dependency, status, executed date |
-| `sink` | where a dollar goes — a security, **paying down margin**, or **holding cash** |
+| `allocation` | one weight against one destination |
+| `step` | one action: sequence, destination, amount, earliest date, dependency, status, executed date |
+| `destination` | where a dollar goes — a security, **paying down margin**, or **holding cash** |
 
-**Sinks are why this is not a rebalancer.** A rebalancer assumes every freed dollar buys something.
+**Destinations are why this is not a rebalancer.** A rebalancer assumes every freed dollar buys something.
 Early in this transition it may not: retiring margin debt at ~5.5% is a certain, tax-free return,
 and it competes directly with buying a 12% distribution that is taxable and may partly be your own
 capital returned. A model where steps only buy and sell cannot express that trade, so it would be
-wrong. Cash is a sink for the same reason.
+wrong. Cash is a destination for the same reason.
 
 Exactly one plan is `active`. Accepting a plan is the single write that turns a proposal into a
 commitment, and it is the moment the app starts being accountable for progress.
@@ -150,7 +150,7 @@ or a database round trip.
 **Valuation** — current allocation by security and by category; total value, margin balance, LTV,
 equity %, buying power.
 
-**Drift** — current allocation against the active target, per sink. Drift is expected. Enough of it
+**Drift** — current allocation against the active target, per destination. Drift is expected. Enough of it
 means the path no longer reaches the target and should be regenerated.
 
 **Path generation** — the diff between current holdings and a target, sequenced into steps.
@@ -252,7 +252,7 @@ total value, LTV, equity %, and buying power live on screen.
   ingestion decision; first issue.
 - What are the scorecard's exact columns and how is "months to coverage" computed without the
   deferred return model? Likely a stated-assumption input rather than a projection.
-- What is the initial sink taxonomy — individual securities, or categories with securities inside
+- What is the initial destination taxonomy — individual securities, or categories with securities inside
   them? Affects whether targets are expressed as "15% QQQI" or "45% income engine."
 - Covered-call funds versus holding the index and trimming: an open strategy question, and the
   first real test of whether `score_target` earns its keep.

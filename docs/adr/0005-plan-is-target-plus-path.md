@@ -32,7 +32,7 @@ reports all fall out of Steps rather than being three separate features.
 Drift detection comes free: when the market moves enough that the Path no longer reaches the
 Target, the app flags it and the coach regenerates.
 
-A Step's destination is a **sink**, not necessarily a security. Paying down margin and holding cash
+A Step points at a **destination**, not necessarily a security. Paying down margin and holding cash
 compete with buying for every dollar freed — early in a transition, retiring debt at the margin
 rate may beat any purchase. A model where Steps only buy and sell cannot express that, so it is
 wrong.

@@ -18,12 +18,18 @@ pnpm dev                 # :4000
 
 ```mermaid
 erDiagram
-    account  ||--o{ snapshot : "one per refresh"
-    account  ||--o{ lot      : "acquisition facts"
-    snapshot ||--o{ holding  : ""
-    snapshot ||--|| balance  : ""
-    security ||--o{ holding  : ""
-    security ||--o{ lot      : ""
+    account    ||--o{ snapshot    : "one per refresh"
+    account    ||--o{ lot         : "acquisition facts"
+    snapshot   ||--o{ holding     : ""
+    snapshot   ||--|| balance     : ""
+    security   ||--o{ holding     : ""
+    security   ||--o{ lot         : ""
+    security   ||--o| destination : ""
+    plan       ||--|| target      : declares
+    plan       ||--o{ step        : "ordered path"
+    target     ||--o{ allocation  : ""
+    allocation }o--|| destination : ""
+    step       }o--|| destination : ""
 ```
 
 **A snapshot is the unit of "as of".** Holdings and balances hang off a `snapshot`, never off the
@@ -40,6 +46,16 @@ is the positive liability LTV is computed against, derived as `max(0, -cash)` be
 carries no margin field. Staleness is two columns — `holdings_last_synced_at` and
 `transactions_last_synced_on` — because the broker syncs those independently and they run days
 apart.
+
+**A `destination` is where a dollar can go, and it is why this is not a rebalancer.** A rebalancer
+assumes every freed dollar buys something. Retiring margin debt is a certain, tax-free return that
+competes with any purchase, so `margin_paydown` and `cash` are destinations alongside securities,
+and a `step` moves `into` or `out_of` one rather than buying or selling. "Sell VOO, pay the loan
+down with the proceeds" is two steps on one path; under buy/sell it has no representation.
+
+Margin paydown and cash are singleton rows, seeded at boot by `src/db/core-destinations.ts` — they
+exist whether or not a plan named them. Exactly one plan is `active` at a time, held by a partial
+unique index rather than by the accept path, so two racing writers still produce one answer.
 
 ## Changing the schema
 

@@ -26,7 +26,9 @@ export const plan = pgTable(
      * plans is legitimate before the first acceptance and after one completes, so "at least
      * one" belongs to the caller.
      */
-    uniqueIndex('plan_single_active').on(table.status).where(sql`${table.status} = 'active'`),
+    uniqueIndex('plan_single_active')
+      .on(table.status)
+      .where(sql`${table.status} = 'active'`),
     check(
       'plan_active_was_accepted',
       sql`${table.status} <> 'active' or ${table.acceptedAt} is not null`,

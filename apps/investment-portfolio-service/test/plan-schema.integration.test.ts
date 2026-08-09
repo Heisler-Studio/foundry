@@ -69,7 +69,9 @@ describe.skipIf(!databaseUrl)('the plan model against Postgres 17', () => {
   });
 
   beforeEach(async () => {
-    await handle.db.execute(sql`truncate "plan", "destination", "security" restart identity cascade`);
+    await handle.db.execute(
+      sql`truncate "plan", "destination", "security" restart identity cascade`,
+    );
     await ensureCoreDestinations(handle.db);
   });
 
@@ -145,9 +147,21 @@ describe.skipIf(!databaseUrl)('the plan model against Postgres 17', () => {
         .returning();
 
       await handle.db.insert(allocation).values([
-        { targetId: declared!.id, destinationId: await securityDestination('QQQI'), weight: '0.50000000' },
-        { targetId: declared!.id, destinationId: await destinationFor('margin_paydown'), weight: '0.40000000' },
-        { targetId: declared!.id, destinationId: await destinationFor('cash'), weight: '0.10000000' },
+        {
+          targetId: declared!.id,
+          destinationId: await securityDestination('QQQI'),
+          weight: '0.50000000',
+        },
+        {
+          targetId: declared!.id,
+          destinationId: await destinationFor('margin_paydown'),
+          weight: '0.40000000',
+        },
+        {
+          targetId: declared!.id,
+          destinationId: await destinationFor('cash'),
+          weight: '0.10000000',
+        },
       ]);
 
       const weights = await handle.db
@@ -156,7 +170,9 @@ describe.skipIf(!databaseUrl)('the plan model against Postgres 17', () => {
         .where(eq(allocation.targetId, declared!.id));
 
       expect(weights).toHaveLength(3);
-      expect(weights.map((entry) => Number(entry.weight)).reduce((a, b) => a + b, 0)).toBeCloseTo(1);
+      expect(weights.map((entry) => Number(entry.weight)).reduce((a, b) => a + b, 0)).toBeCloseTo(
+        1,
+      );
     });
 
     it('refuses a second weight against the same destination', async () => {
