@@ -2,6 +2,11 @@ packages:
   - 'apps/*'
   - 'packages/*'
 
+# Everything more than one workspace depends on.
+catalog:
+  eslint: ^9.39.5
+  typescript: ~6.0.3
+
 # Metro resolves from disk, not the importer's scope, so an isolated store hides
 # transitive deps from the bundler — NativeWind's react-native-css-interop fails first.
 nodeLinker: hoisted

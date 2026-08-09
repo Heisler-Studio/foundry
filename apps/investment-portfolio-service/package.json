@@ -27,8 +27,8 @@
     "@types/node": "^24.13.3",
     "@types/pg": "^8.21.0",
     "drizzle-kit": "^0.31.10",
-    "eslint": "^9.39.5",
-    "typescript": "~6.0.3",
+    "eslint": "catalog:",
+    "typescript": "catalog:",
     "typescript-eslint": "^8.66.0",
     "vitest": "^4.1.10"
   }
