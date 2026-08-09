@@ -19,7 +19,7 @@ export const security = pgTable('security', {
   id: uuid().primaryKey().defaultRandom(),
   ticker: text().notNull().unique('security_ticker_key'),
   name: text().notNull(),
-  // Free text until the sink taxonomy is settled — the design doc leaves it open.
+  // Free text until the destination taxonomy is settled — the design doc leaves it open.
   assetClass: text(),
   distributionYield: rate(),
   // Null is unknown, which is not known-ineligible. No broker field supplies this.

@@ -59,15 +59,16 @@ cheap to discard; that is the point.
 **Target** — the declarative half of a Plan: what the portfolio should look like. Weights, rules,
 margin policy. Two Targets can be scored against each other without either being executed.
 
-**Path** — the imperative half of a Plan: the ordered, dated Steps that get from today's holdings
+**Path** — the imperative half of a Plan: the ordered, dated Moves that get from today's holdings
 to the Target. Generated from the difference between the two, not hand-authored.
 
-**Step** — one action on a Path. Individually dated, individually checkable, and possibly gated on
-another Step or on a calendar condition.
+**Move** — one movement of money on a Path: an amount, into or out of one Destination. Individually
+dated, individually checkable, and possibly gated on another Move or on a calendar condition. Not a
+todo item — a checklist over the active Plan is a view of Moves, not the thing itself.
 
-**Sink** — a destination for a dollar. Buying a security is one sink; paying down margin and
-holding cash are others, and they compete. A Plan allocates across sinks, so "what do I buy" is
-the wrong question when "pay down the loan" may win.
+**Destination** — where a dollar can go. Buying a security is one destination; paying down margin
+and holding cash are others, and they compete. A Plan allocates across destinations, so "what do I
+buy" is the wrong question when "pay down the loan" may win.
 
 **Active plan** — the single accepted Plan currently being executed. All other Plans are
 candidates. Accepting a Plan is the moment a proposal becomes a commitment.

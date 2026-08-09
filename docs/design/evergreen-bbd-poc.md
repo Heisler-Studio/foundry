@@ -97,10 +97,10 @@ erDiagram
     HOLDING ||--o{ LOT : "is made of"
 
     PLAN ||--|| TARGET : declares
-    PLAN ||--o{ STEP : "sequenced as"
+    PLAN ||--o{ MOVE : "sequenced as"
     TARGET ||--o{ ALLOCATION : "weights across"
-    STEP }o--|| SINK : "moves money to"
-    ALLOCATION }o--|| SINK : "weights"
+    MOVE }o--|| DESTINATION : "moves money to"
+    ALLOCATION }o--|| DESTINATION : "weights"
 ```
 
 **Portfolio state** is what the brokerage says is true, plus when it said so.
@@ -129,15 +129,15 @@ explicitly scoped lots out as "belongs in software." This is that software.
 |---|---|
 | `plan` | name, status: `draft → candidate → active → completed \| abandoned` |
 | `target` | the declarative end state — weights, rules, margin policy |
-| `allocation` | one weight against one sink |
-| `step` | one action: sequence, sink, amount, earliest date, dependency, status, executed date |
-| `sink` | where a dollar goes — a security, **paying down margin**, or **holding cash** |
+| `allocation` | one weight against one destination |
+| `move` | one movement of money: sequence, direction, destination, amount, earliest date, dependency, status, executed date |
+| `destination` | where a dollar goes — a security, **paying down margin**, or **holding cash** |
 
-**Sinks are why this is not a rebalancer.** A rebalancer assumes every freed dollar buys something.
+**Destinations are why this is not a rebalancer.** A rebalancer assumes every freed dollar buys something.
 Early in this transition it may not: retiring margin debt at ~5.5% is a certain, tax-free return,
 and it competes directly with buying a 12% distribution that is taxable and may partly be your own
-capital returned. A model where steps only buy and sell cannot express that trade, so it would be
-wrong. Cash is a sink for the same reason.
+capital returned. A model where moves only buy and sell cannot express that trade, so it would be
+wrong. Cash is a destination for the same reason.
 
 Exactly one plan is `active`. Accepting a plan is the single write that turns a proposal into a
 commitment, and it is the moment the app starts being accountable for progress.
@@ -150,11 +150,11 @@ or a database round trip.
 **Valuation** — current allocation by security and by category; total value, margin balance, LTV,
 equity %, buying power.
 
-**Drift** — current allocation against the active target, per sink. Drift is expected. Enough of it
+**Drift** — current allocation against the active target, per destination. Drift is expected. Enough of it
 means the path no longer reaches the target and should be regenerated.
 
-**Path generation** — the diff between current holdings and a target, sequenced into steps.
-Sequencing matters: liquidation precedes purchase, some steps gate on tax year, some gate on margin
+**Path generation** — the diff between current holdings and a target, sequenced into moves.
+Sequencing matters: liquidation precedes purchase, some moves gate on tax year, some gate on margin
 being live.
 
 **Scorecard** — the fixed comparison used to score any target, so comparison is honest:
@@ -165,7 +165,7 @@ being live.
 - resulting LTV and equity %
 - months to coverage
 
-**Tax is an annotation, not a solver.** A sell step says "realizes ~$12k in long-term gains." The
+**Tax is an annotation, not a solver.** A sell move says "realizes ~$12k in long-term gains." The
 engine does not optimize against tax brackets, model wash sales, or constrain what you may buy. The
 number informs the decision; it does not make it. This is a deliberate limit — a full tax engine
 was scoped out as over-correction, and reintroducing one should be a conscious decision, not drift.
@@ -177,7 +177,7 @@ The operations the coach drives. Read tools answer questions; write tools change
 **Read** — `get_portfolio_state`, `get_holdings`, `get_lots`, `get_balances`, `get_drift`,
 `list_plans`, `get_plan`, `score_target`, `get_progress`
 
-**Write** — `propose_plan`, `accept_plan`, `mark_step_done`, `refresh_from_broker`
+**Write** — `propose_plan`, `accept_plan`, `mark_move_done`, `refresh_from_broker`
 
 `score_target` is the load-bearing one: it lets Claude evaluate a hypothetical target *without*
 creating a plan, which is what makes "what if I held QQQ and trimmed instead of buying QQQI" a
@@ -233,7 +233,7 @@ total value, LTV, equity %, and buying power live on screen.
 - Postgres schema and the engine
 - Plan model with lifecycle; target scoring; path generation
 - MCP server, read and write
-- Expo screens: portfolio state, plan comparison, active plan with checkable steps
+- Expo screens: portfolio state, plan comparison, active plan with checkable moves
 - Staleness surfaced everywhere a number is shown
 
 **Out**
@@ -252,7 +252,7 @@ total value, LTV, equity %, and buying power live on screen.
   ingestion decision; first issue.
 - What are the scorecard's exact columns and how is "months to coverage" computed without the
   deferred return model? Likely a stated-assumption input rather than a projection.
-- What is the initial sink taxonomy — individual securities, or categories with securities inside
+- What is the initial destination taxonomy — individual securities, or categories with securities inside
   them? Affects whether targets are expressed as "15% QQQI" or "45% income engine."
 - Covered-call funds versus holding the index and trimming: an open strategy question, and the
   first real test of whether `score_target` earns its keep.
