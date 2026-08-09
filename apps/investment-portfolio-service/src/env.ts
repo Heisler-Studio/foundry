@@ -6,9 +6,7 @@ export type Env = {
 const required = (name: string): string => {
   const value = process.env[name];
   if (!value) {
-    throw new Error(
-      `${name} is not set. Copy .env.example to .env and run through \`op run --env-file=.env --\`.`,
-    );
+    throw new Error(`${name} is not set. Copy .env.example to .env and fill it in.`);
   }
   return value;
 };

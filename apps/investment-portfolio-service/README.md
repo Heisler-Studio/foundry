@@ -9,25 +9,25 @@ migration runner, and `/health`. Schema arrives in ENG-69 and ENG-71, the engine
 
 ## Running it
 
-Secrets resolve through 1Password at process start; nothing resolved is ever written to disk.
-Write this to `.env` — it holds references, not values, and `.env` is gitignored:
+Configuration is environment variables, loaded from `.env` in this directory — Compose and
+`node --env-file` both read it with no wrapper process. `.env` is gitignored; `.env.example` is
+the checked-in template:
 
-```dotenv
-POSTGRES_PASSWORD=op://Agents/investment-portfolio-service/password
-DATABASE_URL=op://Agents/investment-portfolio-service/connection-string
-POSTGRES_PORT=5433
-PORT=4000
+```bash
+cp .env.example .env                             # then edit the password
+pnpm db:up                                       # Postgres 17 on localhost:5433
+pnpm db:migrate
+pnpm dev
+curl localhost:4000/health
 ```
 
 `POSTGRES_PORT` is the host port for the container's 5432; it must match the port inside
-`DATABASE_URL`. Then:
+`DATABASE_URL`.
 
-```bash
-op run --env-file=.env -- pnpm db:up             # Postgres 17 on localhost:5433
-op run --env-file=.env -- pnpm db:migrate
-op run --env-file=.env -- pnpm dev
-curl localhost:4000/health
-```
+The Postgres credentials here are local-only — the container is not exposed beyond localhost and
+the database holds nothing that survives `pnpm db:reset`. A deployed instance gets its
+`DATABASE_URL` from the platform's own secret store, injected as an environment variable; nothing
+in `src/` reads a file or calls a secrets CLI, so that swap needs no code change.
 
 `pnpm db:reset` drops the volume and starts clean. `pnpm db:down` stops the container and keeps it.
 
@@ -38,7 +38,7 @@ then:
 
 ```bash
 pnpm db:generate                                 # writes SQL into drizzle/
-op run --env-file=.env -- pnpm db:migrate
+pnpm db:migrate
 ```
 
 Generated SQL is committed. Migrations are applied by `src/db/migrate.ts` — the service runs them
@@ -70,8 +70,8 @@ set in both `drizzle.config.ts` and `src/db/client.ts`. The two must agree.
 ## Tests
 
 ```bash
-pnpm test                                        # unit only
-op run --env-file=.env -- pnpm test              # adds the Postgres integration tests
+pnpm test                                        # unit only, when DATABASE_URL is unset
+pnpm db:up && pnpm test                          # adds the Postgres integration tests
 ```
 
 The integration tests skip themselves when `DATABASE_URL` is unset, so `pnpm test` at the repo
