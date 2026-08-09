@@ -7,7 +7,7 @@ Heisler Studio's monorepo — Expo apps and the packages they share.
 ```
 apps/                       deployable units — an app is not necessarily an Expo app
   evergreen-bbd/            Expo SDK 57 app — personal investment tracking for a margin account
-  evergreen-bbd-service/    Node service: Postgres, engine, MCP, HTTP API (ADR-0004)
+  investment-portfolio-service/  Node service: Postgres, engine, MCP, HTTP API (ADR-0004)
 packages/                   shared packages (none yet — see ADR-0001)
 docs/
   adr/                      architecture decisions
@@ -40,7 +40,7 @@ pnpm format       # prettier, with Tailwind class sorting
 Target one workspace with `pnpm --filter evergreen-bbd <script>`.
 
 The service needs Docker and 1Password —
-[`apps/evergreen-bbd-service/README.md`](apps/evergreen-bbd-service/README.md) has the loop.
+[`apps/investment-portfolio-service/README.md`](apps/investment-portfolio-service/README.md) has the loop.
 
 ## Adding an app
 

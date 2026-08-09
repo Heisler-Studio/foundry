@@ -9,7 +9,7 @@ const { db, close } = createDb(env.databaseUrl);
 await runMigrations(db);
 
 const server = createHttpServer(db);
-server.listen(env.port, () => console.log(`evergreen-bbd-service listening on :${env.port}`));
+server.listen(env.port, () => console.log(`investment-portfolio-service listening on :${env.port}`));
 
 const shutdown = () => {
   server.close(() => {

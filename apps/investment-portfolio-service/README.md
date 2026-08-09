@@ -1,4 +1,4 @@
-# evergreen-bbd-service
+# investment-portfolio-service
 
 The local service behind [`evergreen-bbd`](../evergreen-bbd). It owns Postgres, the calculation
 engine, the MCP server, and the HTTP API; the Expo app is a thin client over that API. Why a
@@ -13,8 +13,8 @@ Secrets resolve through 1Password at process start; nothing resolved is ever wri
 Write this to `.env` — it holds references, not values, and `.env` is gitignored:
 
 ```dotenv
-POSTGRES_PASSWORD=op://Agents/evergreen-bbd-service/password
-DATABASE_URL=op://Agents/evergreen-bbd-service/connection-string
+POSTGRES_PASSWORD=op://Agents/investment-portfolio-service/password
+DATABASE_URL=op://Agents/investment-portfolio-service/connection-string
 POSTGRES_PORT=5433
 PORT=4000
 ```

@@ -121,7 +121,7 @@ importers:
         specifier: ~6.0.3
         version: 6.0.3
 
-  apps/evergreen-bbd-service:
+  apps/investment-portfolio-service:
     dependencies:
       drizzle-orm:
         specifier: ^0.45.2
