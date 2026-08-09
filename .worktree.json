@@ -1,9 +1,4 @@
 {
-  "copy": [
-    ".claude/settings.local.json",
-    "apps/investment-portfolio-service/.env"
-  ],
-  "setup": [
-    "pnpm install --frozen-lockfile"
-  ]
+  "copy": [".claude/settings.local.json", "apps/investment-portfolio-service/.env"],
+  "setup": ["pnpm install --frozen-lockfile"]
 }
