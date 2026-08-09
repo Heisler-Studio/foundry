@@ -11,6 +11,7 @@ const banned = [
   { pattern: /mode:\s*['"]number['"]/, why: "mode: 'number' reads numerics through a double" },
   { pattern: /\bnumeric\s*\(/, why: 'call money()/quantity()/rate() so precision stays uniform' },
   { pattern: /withTimezone:\s*false/, why: 'instants are timestamptz — use timestamptz()' },
+  { pattern: /\bdate\s*\(/, why: 'calendar days are calendarDate() — a bare date() reads as Date' },
 ];
 
 const schemaFiles = async (dir: string): Promise<string[]> => {

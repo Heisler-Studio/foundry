@@ -1,4 +1,4 @@
-import { numeric, timestamp } from 'drizzle-orm/pg-core';
+import { date, numeric, timestamp } from 'drizzle-orm/pg-core';
 
 /**
  * Every money column in this service comes from here (ADR-0004).
@@ -22,3 +22,8 @@ export const rate = () => numeric({ precision: 12, scale: 8 });
 /** Any instant. Always `timestamptz`: `last_synced_at` is compared against wall-clock now to
  *  decide whether a plan is trustworthy, and a naive timestamp makes that comparison a guess. */
 export const timestamptz = () => timestamp({ withTimezone: true, mode: 'date' });
+
+/** A calendar day. Read as `'YYYY-MM-DD'` and never as a `Date`, because a `Date` is an instant
+ *  and would make "which tax year did this lot land in" depend on the reader's timezone.
+ *  Columns built from this end in `_on`, so `_at` always means an instant. */
+export const calendarDate = () => date({ mode: 'string' });
