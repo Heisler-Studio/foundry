@@ -1,4 +1,5 @@
 import { createDb } from './db/client.ts';
+import { ensureCoreDestinations } from './db/core-destinations.ts';
 import { runMigrations } from './db/migrate.ts';
 import { loadEnv } from './env.ts';
 import { createHttpServer } from './server.ts';
@@ -7,6 +8,7 @@ const env = loadEnv();
 const { db, close } = createDb(env.databaseUrl);
 
 await runMigrations(db);
+await ensureCoreDestinations(db);
 
 const server = createHttpServer(db);
 server.listen(env.port, () =>
